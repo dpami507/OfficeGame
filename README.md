@@ -1,6 +1,6 @@
 # Unity WebGL CI/CD with GitHub Actions
 
-WebGL published here (EDIT IT!) https://dpami507.github.io/UnityBoilerplate/
+WebGL published here (EDIT IT!) https://dpami507.github.io/OfficeGame/
  
 # Setup Steps:
 
