@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float dashTime;
     public float dashCooldownTime;
     public float lastDashTime;
-
+    
     Rigidbody2D rb;
 
     public bool inputActive;
@@ -25,6 +25,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        //Update Player facing direction
+        if(Input.GetAxisRaw("Horizontal") > 0)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+        else if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            transform.localScale = new Vector2(1, 1);
+        }
+
         //Dash
         if (Input.GetKeyDown(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time)
         {
