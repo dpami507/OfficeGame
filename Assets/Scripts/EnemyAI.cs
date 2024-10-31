@@ -16,6 +16,7 @@ public class EnemyAI : MonoBehaviour
     public float attackDist;
     public float lastCooldownTime;
     public float lastAttackTime;
+    public int damage;
 
     private void Start()
     {
@@ -60,7 +61,7 @@ public class EnemyAI : MonoBehaviour
         if(lastAttackTime + lastCooldownTime < Time.time && attacking)
         {
             Debug.Log("kapow");
-            target.GetComponent<Health>().TakeDamage(5);
+            target.GetComponent<Health>().TakeDamage(damage);
             lastAttackTime = Time.time;
         }
     }
