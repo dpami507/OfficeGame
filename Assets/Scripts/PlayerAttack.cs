@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButton(0) && lastAttack + attackCooldown < Time.time) 
+        if(lastAttack + attackCooldown < Time.time) 
         {
             MeleeAttack();
             lastAttack = Time.time;
