@@ -9,13 +9,27 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackSquare;
     public Vector2 attackSquareSize;
 
-    void Attack()
+    public RaycastHit2D[] hits;
+
+    private void Update()
     {
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(attackSquare.position, attackSquareSize, 0f, Vector2.one);
+        if(Input.GetMouseButton(0) && lastAttack + attackCooldown < Time.time) 
+        {
+            MeleeAttack();
+            lastAttack = Time.time;
+        }
+    }
+
+    void MeleeAttack()
+    {
+        hits = Physics2D.BoxCastAll(attackSquare.position, attackSquareSize, 0f, Vector2.up, .1f);
         
         foreach (RaycastHit2D hit in hits)
         {
-            hit.transform.GetComponent<EnemyManager>().enemyHealth.TakeDamage(damageAmount);
+            if (hit.transform.CompareTag("enemy")) 
+            {
+                hit.transform.GetComponent<EnemyManager>().enemyHealth.TakeDamage(damageAmount);
+            }
         }
     }
 }
