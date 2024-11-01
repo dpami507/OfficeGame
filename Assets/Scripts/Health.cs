@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth;
+    public float currentHealth;
 
     public Image healthBar;
 
@@ -15,9 +15,9 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        healthBar.fillAmount = (float)currentHealth / (float)maxHealth;
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 }

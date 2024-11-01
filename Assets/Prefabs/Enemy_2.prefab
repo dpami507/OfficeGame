@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAI: {fileID: 4849523428778904659}
   enemyHealth: {fileID: 6449301523227383361}
+  xpGemToSpawn: {fileID: 200178325981620798, guid: 38e0e1822c2fa48479ae6fe78d5c7249, type: 3}
 --- !u!50 &210673815545774138
 Rigidbody2D:
   serializedVersion: 5

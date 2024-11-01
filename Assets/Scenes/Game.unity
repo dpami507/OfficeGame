@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 185282424}
   - component: {fileID: 185282423}
   m_Layer: 0
-  m_Name: EnemySpanwer
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -739,6 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMove: {fileID: 687816793}
   playerHealth: {fileID: 687816792}
+  level: 1
 --- !u!114 &687816792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,10 +803,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192a4cc6cb3096042bedee18e94442d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 1
-  attackCooldown: 0.25
-  attackSquare: {fileID: 1512601721}
+  damageAmount: 15
+  attackCooldown: 1
+  pencil: {fileID: 8973689698952196476, guid: e4a8599355c07804f9e3f051746637c1, type: 3}
+  player: {fileID: 687816794}
   attackSquareSize: {x: 3, y: 3}
+  enemies: {fileID: 185282423}
 --- !u!1 &1004927324
 GameObject:
   m_ObjectHideFlags: 0
