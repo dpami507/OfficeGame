@@ -65,4 +65,13 @@ public class EnemyAI : MonoBehaviour
             lastAttackTime = Time.time;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "PlayerAttack") {
+            // maybe merge enemy health into this same file for easier access?
+            gameObject.GetComponent<Health>().TakeDamage(collision.GetComponent<BulletScript>().damage);
+            Destroy(collision.gameObject);
+        }
+    }
 }

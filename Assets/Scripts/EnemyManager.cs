@@ -4,6 +4,7 @@ public class EnemyManager : MonoBehaviour
 {
     public EnemyAI enemyAI;
     public Health enemyHealth;
+    public GameObject xpGemToSpawn;
 
     private void Update()
     {
@@ -15,6 +16,7 @@ public class EnemyManager : MonoBehaviour
 
     void Die()
     {
+        Instantiate(xpGemToSpawn, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 }
