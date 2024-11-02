@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public Transform target;
+    public GameObject xpGemToSpawn;
+    Health myHealth;
+    Transform target;
 
     bool moving;
     public float speed;
@@ -18,10 +20,12 @@ public class EnemyAI : MonoBehaviour
     public float lastAttackTime;
     public int damage;
 
+
     private void Start()
     {
-        target = FindObjectOfType<PlayerManager>().transform;
+        target = FindFirstObjectByType<PlayerManager>().transform;
         rb = GetComponent<Rigidbody2D>();
+        myHealth = GetComponent<Health>();
     }
 
     private void Update()
@@ -39,15 +43,16 @@ public class EnemyAI : MonoBehaviour
             attacking = false;
             moving = true;
         }
+
+        if (myHealth.currentHealth <= 0)
+        {
+            Die();
+        }
     }
 
     private void FixedUpdate()
     {
-        Move();
-    }
-
-    void Move()
-    {
+        // movement
         if (!moving) { rb.linearVelocity = Vector2.zero; return; }
 
         float xDist = (target.position.x - transform.position.x) / tDist;
@@ -66,11 +71,16 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    void Die()
+    {
+        Instantiate(xpGemToSpawn, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "PlayerAttack") {
-            // maybe merge enemy health into this same file for easier access?
-            gameObject.GetComponent<Health>().TakeDamage(collision.GetComponent<BulletScript>().damage);
+            myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage);
             Destroy(collision.gameObject);
         }
     }

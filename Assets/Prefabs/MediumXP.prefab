@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4423742371812460151}
   - component: {fileID: 8263080905970861116}
   m_Layer: 0
-  m_Name: SmallXP
-  m_TagString: xpSmall
+  m_Name: MediumXP
+  m_TagString: xpMedium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +147,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.017577427, g: 0.71588695, b: 0.745283, a: 1}
+  m_Color: {r: 0.015686294, g: 0.74509805, b: 0.29610792, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -234,7 +234,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.14484692, g: 0.38048053, b: 0.43867922, a: 1}
+  m_Color: {r: 0.14489141, g: 0.3490566, b: 0.27114284, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

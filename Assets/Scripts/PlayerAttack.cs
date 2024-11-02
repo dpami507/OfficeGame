@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public int damageAmount;
+    /*public int damageAmount;
     public float attackCooldown;
     float lastAttack;
 
@@ -10,20 +10,22 @@ public class PlayerAttack : MonoBehaviour
 
     public Transform player;
     public Vector2 attackSquareSize;
-    public EnemySpawner enemies; 
+    public WaveSpawner enemies; 
 
     public RaycastHit2D[] hits;
 
     private void Update()
     {
+        // attack
         lastAttack += Time.deltaTime;
-        if(lastAttack > attackCooldown) 
+        if (lastAttack > attackCooldown)
         {
             BasicAttack();
             lastAttack = 0;
         }
     }
-    /*
+
+    
     void MeleeAttack()
     {
         hits = Physics2D.BoxCastAll(player.position, attackSquareSize, 0f, Vector2.up, .1f);
@@ -36,20 +38,26 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
-    */
-    void BasicAttack() {
+    
+
+    // Throws a pencil at the nearest enemy
+    void BasicAttack()
+    {
         // find nearest enemy
         float closestDist = 1000000.0f;
         float temp;
         GameObject closestEnemy = null;
-        foreach (GameObject enemy in enemies.spawnedEnemies) {
+        foreach (GameObject enemy in enemies.spawnedEnemies)
+        {
             temp = Mathf.Abs(Vector3.Distance(player.position, enemy.transform.position));
-            if (temp < closestDist) {
+            if (temp < closestDist)
+            {
                 closestDist = temp;
                 closestEnemy = enemy;
             }
         }
-        if (closestEnemy != null) {
+        if (closestEnemy != null)
+        {
             // technically all of these variables could be combined in the instantiate call but I would like a refrence o0f this code lol
             Vector2 posDiff = player.transform.position - closestEnemy.transform.position;
             Vector2 direction = posDiff.normalized;
@@ -59,4 +67,6 @@ public class PlayerAttack : MonoBehaviour
             playerPencil.GetComponent<BulletScript>().direction = direction;
         }
     }
+    */
+
 }

@@ -686,10 +686,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 687816794}
-  - component: {fileID: 687816793}
   - component: {fileID: 687816792}
   - component: {fileID: 687816791}
-  - component: {fileID: 687816795}
   - component: {fileID: 687816790}
   m_Layer: 0
   m_Name: Player
@@ -737,9 +735,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed3275ca72ab3f43b9ec7aa949c4d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMove: {fileID: 687816793}
   playerHealth: {fileID: 687816792}
+  pencil: {fileID: 8973689698952196476, guid: e4a8599355c07804f9e3f051746637c1, type: 3}
+  enemies: {fileID: 185282423}
   level: 1
+  speed: 5
+  dashSpeed: 5
+  dashCooldownTime: 2
+  attackCooldown: 1
 --- !u!114 &687816792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,25 +758,6 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 1379293501}
---- !u!114 &687816793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687816789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf03d9fade473df409a7c1d9c9a65978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerVelocity: {x: 0, y: 0}
-  speed: 5
-  dashSpeed: 15
-  dashTime: 0.25
-  dashCooldownTime: 2
-  lastDashTime: 0
-  inputActive: 0
 --- !u!4 &687816794
 Transform:
   m_ObjectHideFlags: 0
@@ -791,24 +775,6 @@ Transform:
   - {fileID: 1512601721}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &687816795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687816789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 192a4cc6cb3096042bedee18e94442d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 15
-  attackCooldown: 1
-  pencil: {fileID: 8973689698952196476, guid: e4a8599355c07804f9e3f051746637c1, type: 3}
-  player: {fileID: 687816794}
-  attackSquareSize: {x: 3, y: 3}
-  enemies: {fileID: 185282423}
 --- !u!1 &1004927324
 GameObject:
   m_ObjectHideFlags: 0
