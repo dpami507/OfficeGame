@@ -264,7 +264,6 @@ GameObject:
   - component: {fileID: 6125013395246903755}
   - component: {fileID: 1421533257363054802}
   - component: {fileID: 2236181707086234729}
-  - component: {fileID: 8180273503194666107}
   - component: {fileID: 6394430513337399966}
   - component: {fileID: 8717072877381621360}
   m_Layer: 0
@@ -303,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169367bfc77e98c4aaa0f7633693ff47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  xpGemToSpawn: {fileID: 200178325981620798, guid: 83d404e7f15977d4482f97fc0d88acc7, type: 3}
   speed: 1
   attackDist: 1.5
   lastCooldownTime: 0.5
@@ -324,21 +323,6 @@ MonoBehaviour:
   maxHealth: 15
   currentHealth: 0
   healthBar: {fileID: 2513670104719979803}
---- !u!114 &8180273503194666107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4342435066365575563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8181ff9c340c6a84f8f84b00f2b90bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAI: {fileID: 1421533257363054802}
-  enemyHealth: {fileID: 2236181707086234729}
-  xpGemToSpawn: {fileID: 200178325981620798, guid: 38e0e1822c2fa48479ae6fe78d5c7249, type: 3}
 --- !u!50 &6394430513337399966
 Rigidbody2D:
   serializedVersion: 5

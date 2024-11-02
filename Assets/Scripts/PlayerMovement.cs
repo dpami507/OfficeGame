@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Vector2 playerVelocity;
+    /*public Vector2 playerVelocity;
     public int speed;
 
     public int dashSpeed;
@@ -45,11 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
-    }
-
-    void Movement()
-    {
+        // moving
         if (!inputActive) { return; }
 
         //Get Input
@@ -69,5 +65,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
 
         inputActive = true;
-    }
+    }*/
 }
