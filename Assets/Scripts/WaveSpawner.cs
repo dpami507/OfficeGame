@@ -11,6 +11,8 @@ public class WaveSpawner : MonoBehaviour
 
     public float waveStartTime;
 
+    public Camera playerCamera;
+
     public int amountPerWave;
     public int currentEnemyAmount;
     public float enemyIncreasePerWave;
@@ -55,13 +57,53 @@ public class WaveSpawner : MonoBehaviour
 
         yield return new WaitForSeconds(waveStartTime);
 
-        for (int i = 0; i < amountPerWave; i++)
+        for (int i = 0; i < currentEnemyAmount; i++)
         {
             int j = UnityEngine.Random.Range(0, enemyAssets.Length);
-            spawnedEnemies.Add(Instantiate(enemyAssets[j].asset));
+            GameObject _enemy = Instantiate(enemyAssets[j].asset);
+            _enemy.transform.position = GetSpawnPos();
+            spawnedEnemies.Add(_enemy);
         }
 
         enemiesSpawning = false;
+    }
+
+    Vector2 GetSpawnPos()
+    {
+        float screenAspect = (float)Screen.width / (float)Screen.height;
+        float camHeight = playerCamera.orthographicSize * 1.2f;
+        float camWidth = camHeight * screenAspect;
+
+        int topOrBottom = (UnityEngine.Random.Range(0, 2));
+        int leftOrRight = (UnityEngine.Random.Range(0, 2));
+        int TBorLR = (UnityEngine.Random.Range(0, 2));
+
+        if(TBorLR == 0)
+        {
+            if (topOrBottom == 0)
+            {
+                return new Vector2(playerCamera.transform.position.x + UnityEngine.Random.Range(-camWidth, camWidth), 
+                    camHeight + playerCamera.transform.position.y);
+            }
+            else
+            {
+                return new Vector2(playerCamera.transform.position.x + UnityEngine.Random.Range(-camWidth, camWidth), 
+                    -camHeight + playerCamera.transform.position.y);
+            }
+        }
+        else
+        {
+            if (leftOrRight == 0)
+            {
+                return new Vector2(camWidth + playerCamera.transform.position.x,
+                    UnityEngine.Random.Range(-camHeight, camHeight) + playerCamera.transform.position.y);
+            }
+            else
+            {
+                return new Vector2(-camWidth + playerCamera.transform.position.x,
+                    UnityEngine.Random.Range(-camHeight, camHeight) + playerCamera.transform.position.y);
+            }
+        }
     }
 }
 
