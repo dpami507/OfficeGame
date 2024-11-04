@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - xpSmall
   - PlayerAttack
+  - xpMedium
   layers:
   - Default
   - TransparentFX

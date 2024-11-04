@@ -34,6 +34,10 @@ public class PlayerManager : MonoBehaviour
     public float attackCooldown;
     float lastAttack;
 
+    // pause screen things
+    bool isPaused = false;
+    public GameObject levelUI;
+
 
     private void Start()
     {
@@ -65,6 +69,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // attack
+        
         lastAttack += Time.deltaTime;
         if (lastAttack > attackCooldown)
         {
@@ -82,7 +87,7 @@ public class PlayerManager : MonoBehaviour
     private void FixedUpdate()
     {
         // moving
-        if (!inputActive) { return; }
+        if (!inputActive || isPaused) { return; }
 
         //Get Input
         float x = Input.GetAxisRaw("Horizontal") * speed;
@@ -131,6 +136,7 @@ public class PlayerManager : MonoBehaviour
     private void LevelUp() {
         level++;
         Debug.Log("Leveled up to level " + level);
+        FindFirstObjectByType<MainMenuUI>().PauseGame(levelUI);
     }
 
     // Throws a pencil at the nearest enemy
@@ -175,4 +181,5 @@ public class PlayerManager : MonoBehaviour
         inputActive = true;
         playerHealth.canTakeDamage = true; //Stop God
     }
+
 }
