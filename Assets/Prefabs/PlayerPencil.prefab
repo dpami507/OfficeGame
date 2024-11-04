@@ -180,10 +180,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e2c99631c4b1349bb2ff51f955a49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   direction: {x: 0, y: 0, z: 0}
   maxLife: 3
   rb: {fileID: -7235421447956541772}
+  damage: 5
 --- !u!50 &-7235421447956541772
 Rigidbody2D:
   serializedVersion: 5

@@ -10,13 +10,18 @@ public class Health : MonoBehaviour
 
     public Image healthBar;
 
+    public bool canTakeDamage;
+
     void Start()
     {
         currentHealth = maxHealth;
+        canTakeDamage = true;
     }
 
     public void TakeDamage(float damage)
     {
+        if (!canTakeDamage) { return; }
+
         currentHealth -= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
     }
