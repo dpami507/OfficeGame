@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerManager : MonoBehaviour
 {
     // dependencies and refrences
-    public GameObject pencil;
-    public WaveSpawner enemies;
     Health playerHealth;
     Rigidbody2D rb;
     SpriteRenderer mySprite;
@@ -21,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     public TMP_Text levelTxt;
 
     // speed and dashing
-    Vector2 playerVelocity;
+    public Vector2 playerVelocity;
     public int speed;
     public int dashSpeed;
     public float dashTime;
@@ -29,14 +28,10 @@ public class PlayerManager : MonoBehaviour
     float lastDashTime;
     bool inputActive;
 
-    // attacking
-    //public int damageAmount;
-    public float attackCooldown;
-    float lastAttack;
-
     // pause screen things
     bool isPaused = false;
     public GameObject levelUI;
+    public bool facingLeft;
 
 
     private void Start()
@@ -62,19 +57,12 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             mySprite.flipX = false;
+            facingLeft = true;
         }
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             mySprite.flipX = true;
-        }
-
-        // attack
-        
-        lastAttack += Time.deltaTime;
-        if (lastAttack > attackCooldown)
-        {
-            BasicAttack();
-            lastAttack = 0;
+            facingLeft = false;
         }
 
         //Dash
@@ -137,34 +125,6 @@ public class PlayerManager : MonoBehaviour
         level++;
         Debug.Log("Leveled up to level " + level);
         FindFirstObjectByType<MainMenuUI>().PauseGame(levelUI);
-    }
-
-    // Throws a pencil at the nearest enemy
-    void BasicAttack()
-    {
-        // find nearest enemy
-        float closestDist = 1000000.0f;
-        float temp;
-        GameObject closestEnemy = null;
-        foreach (GameObject enemy in enemies.spawnedEnemies)
-        {
-            temp = Mathf.Abs(Vector3.Distance(transform.position, enemy.transform.position));
-            if (temp < closestDist)
-            {
-                closestDist = temp;
-                closestEnemy = enemy;
-            }
-        }
-        if (closestEnemy != null)
-        {
-            // technically all of these variables could be combined in the instantiate call but I would like a refrence o0f this code lol
-            Vector2 posDiff = transform.position - closestEnemy.transform.position;
-            Vector2 direction = posDiff.normalized;
-            float rotAngle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-            Quaternion bulletRot = Quaternion.Euler(0, 0, rotAngle);
-            GameObject playerPencil = Instantiate(pencil, transform.position, bulletRot);
-            playerPencil.GetComponent<BulletScript>().direction = direction;
-        }
     }
 
     // coroutines
