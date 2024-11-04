@@ -17,6 +17,9 @@ public class WaveSpawner : MonoBehaviour
     public int currentEnemyAmount;
     public float enemyIncreasePerWave;
 
+    public int maxWaveTime;
+    public float waveStartedTime;
+
     public bool waveOngoing;
     public bool enemiesSpawning;
 
@@ -40,16 +43,23 @@ public class WaveSpawner : MonoBehaviour
             Debug.Log("Stopping Wave");
             WaveOver();
         }
+
+        if(Time.time - waveStartedTime > maxWaveTime)
+        {
+            StartCoroutine(WaveStart());
+        }
     }
 
     void WaveOver()
     {
         waveOngoing = false;
-        wave++;
     }
 
     IEnumerator WaveStart()
     {
+        wave++;
+        waveStartedTime = Time.time;
+
         waveOngoing = true;
         enemiesSpawning = true;
 
