@@ -97,8 +97,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5206756275010598420}
   - component: {fileID: 7467231768282700131}
-  - component: {fileID: -6898544277255669164}
   - component: {fileID: -7235421447956541772}
+  - component: {fileID: -3240731745236535465}
   m_Layer: 0
   m_Name: PlayerPencil
   m_TagString: PlayerAttack
@@ -168,23 +168,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.3}
   m_EdgeRadius: 0
---- !u!114 &-6898544277255669164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8973689698952196476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0e2c99631c4b1349bb2ff51f955a49b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  direction: {x: 0, y: 0, z: 0}
-  maxLife: 3
-  rb: {fileID: -7235421447956541772}
-  damage: 5
 --- !u!50 &-7235421447956541772
 Rigidbody2D:
   serializedVersion: 5
@@ -212,3 +195,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3240731745236535465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973689698952196476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3ee63b0c01122469d697294200d35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
+  speed: 5
+  direction: {x: 0, y: 0, z: 0}
+  maxLife: 10
+  rb: {fileID: -7235421447956541772}

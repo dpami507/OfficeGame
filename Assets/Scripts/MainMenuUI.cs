@@ -17,7 +17,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void PauseGame(GameObject uiToEnable)
     {
-        uiToEnable.SetActive(true);
+        Instantiate(uiToEnable, transform);
         // activate functions in other places when game is paused
 
         // TIME SCALE MUST BE LAST OR THE GAME SOFTLOCKS
@@ -26,7 +26,7 @@ public class MainMenuUI : MonoBehaviour
 
     public void ResumeGame(GameObject uiToDisable)
     {
-        uiToDisable.SetActive(false);
+        Destroy(uiToDisable);
         // activate functions in other places when game is resumed
 
         // TIME SCALE MUST BE LAST OR THE GAME SOFTLOCKS

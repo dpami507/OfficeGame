@@ -1,25 +1,8 @@
 using UnityEngine;
 
-public class PencilWeapon : MonoBehaviour
+public class PencilWeapon : WeaponBaseScript
 {
-    //public int damageAmount;
-    public float attackCooldown;
-    float lastAttack;
-
-    public GameObject pencil;
-    public WaveSpawner enemies;
-
-    private void Update()
-    {
-        lastAttack += Time.deltaTime;
-        if (lastAttack > attackCooldown)
-        {
-            BasicAttack();
-            lastAttack = 0;
-        }
-    }
-
-    void BasicAttack()
+    public override void Attack()
     {
         // find nearest enemy
         float closestDist = 1000000.0f;
@@ -41,8 +24,8 @@ public class PencilWeapon : MonoBehaviour
             Vector2 direction = posDiff.normalized;
             float rotAngle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
             Quaternion bulletRot = Quaternion.Euler(0, 0, rotAngle);
-            GameObject playerPencil = Instantiate(pencil, transform.position, bulletRot);
-            playerPencil.GetComponent<BulletScript>().direction = direction;
+            GameObject playerPencil = Instantiate(bullet, transform.position, bulletRot);
+            playerPencil.GetComponent<PencilScript>().direction = direction;
         }
     }
 }
