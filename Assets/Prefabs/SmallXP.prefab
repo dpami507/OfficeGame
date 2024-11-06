@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4423742371812460151}
   - component: {fileID: 8263080905970861116}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SmallXP
   m_TagString: xpSmall
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4453490930578688206}
   - component: {fileID: 3224676067380082646}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GemMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7948239706080705847}
   - component: {fileID: 2735491354483528539}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
