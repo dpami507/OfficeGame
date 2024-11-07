@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     public GameObject xpGemToSpawn;
     Health myHealth;
     Transform target;
+    SpriteRenderer sprite;
 
     bool moving;
     public float speed;
@@ -26,6 +27,7 @@ public class EnemyAI : MonoBehaviour
         target = FindFirstObjectByType<PlayerManager>().transform;
         rb = GetComponent<Rigidbody2D>();
         myHealth = GetComponent<Health>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     private void Update()
@@ -59,6 +61,15 @@ public class EnemyAI : MonoBehaviour
         float yDist = (target.position.y - transform.position.y) / tDist;
 
         rb.linearVelocity = new Vector2(xDist * speed, yDist * speed);
+
+        if(target.position.x < transform.position.x)
+        {
+            sprite.flipX = true;   
+        }
+        else
+        {
+            sprite.flipX = false;
+        }
     }
 
     void Attack()
