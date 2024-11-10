@@ -35,6 +35,36 @@ public class PlayerManager : MonoBehaviour
     float lastDashTime;
     bool inputActive;
 
+    // player stats
+    /* potential Stats to add:
+     * 0. Max Health
+     * 1. Regeneration (per second)
+     * 2. Armor 
+     * 3. Move Speed
+     * 4. Strength
+     * 5. Area (size of weapon attacks)
+     * 6. Weapon Speed (speed that the weapons move at)
+     * 7. Duration (how long weapons can stay on screen)
+     * 8. Amount (extra projectiles)
+     * 9. Cooldown
+     * 10. Luck
+     * 11. Growth (extra experience per gem)
+     * 12. Greed (affects gold gained)
+     * 13. Curse (affects how many enemies spawns and their stats)
+     * 14. Magnet (range of pickups)
+     */
+    // Current added stats in order of index:
+    float[] stats = {
+        100, // 0. Max Health
+        1.0f, // 1. Move Speed
+        1.0f, // 2. Strength
+        1.0f, // 3. Duration
+        0, // 4. Amount
+        1.00f, // 5. Cooldown
+        1.0f, // 6. Growth
+        0.75f // 7. Magnet
+    };
+
     // pause screen things
     bool isPaused = false;
     public GameObject levelUI;
@@ -44,8 +74,11 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         // Add all trinkets and starting level, maybe add the weapons to this dictionary too?
-        TrinketData.Add("Coffee", 0);
-        TrinketData.Add("Magnet", 0);
+        TrinketData.Add("Coffee", 1);
+        TrinketData.Add("Magnet", 1);
+        TrinketData.Add("Sugar Cube", 1);
+        TrinketData.Add("Copier", 1);
+        TrinketData.Add("Color Ink", 1);
 
         rb = GetComponent<Rigidbody2D>(); //Get Rigidbody
         playerHealth = GetComponent<Health>(); // set up health
@@ -88,13 +121,9 @@ public class PlayerManager : MonoBehaviour
         // moving
         if (!inputActive || isPaused) { return; }
 
-        //Get Input
-        float x = Input.GetAxisRaw("Horizontal") * speed;
-        float y = Input.GetAxisRaw("Vertical") * speed;
-
         //Set Velocity
-        playerVelocity = new Vector2(x, y);
-        rb.linearVelocity = playerVelocity;
+        playerVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        rb.linearVelocity = playerVelocity * speed * stats[1];
     }
 
     void Die()
@@ -132,6 +161,41 @@ public class PlayerManager : MonoBehaviour
         FindFirstObjectByType<MainMenuUI>().PauseGame(levelUI);
     }
 
+    public string LevelDescription(string item, int level) {
+        switch (item)
+        {
+            case "Pencil":
+                return weapons[0].GetComponent<PencilWeapon>().LevelDescription(level);
+            case "Printer":
+                return weapons[1].GetComponent<PrinterWeapon>().LevelDescription(level);
+            case "Coffee":
+            case "Magnet":
+            case "Sugar Cube":
+            case "Copier":
+            case "Color Ink":
+                return TrinketDescription(item);
+            default:
+                return "error2";
+        }
+    }
+
+    private string TrinketDescription(string item) {
+        switch (item) {
+            case "Coffee":
+                return "Increase movement speed by 10%.";
+            case "Magnet":
+                return "Increase pickup range by 30%.";
+            case "Sugar Cube":
+                return "Reduce cooldowns by 8%";
+            case "Copier":
+                return "Shoot an additional projectile.";
+            case "Color Ink":
+                return "Increase damage by 20%.";
+            default:
+                return "Error1";
+        }
+    }
+
     public void ApplyLevelChoice(string item)
     {
         switch (item)
@@ -141,20 +205,51 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log(item);
                 foreach (GameObject weapon in weapons) {
                     if (weapon.GetComponent<WeaponBaseScript>().nameWeapon == item) {
+                        weapon.GetComponent<WeaponBaseScript>().LevelSelfUp(weapon.GetComponent<WeaponBaseScript>().level);
                         weapon.GetComponent<WeaponBaseScript>().level++;
                     }
                 }
 
                 break;
             case "Coffee":
+                Debug.Log(item);
+                TrinketData[item]++;
+                stats[1] += 0.1f;
+                break;
             case "Magnet":
                 Debug.Log(item);
                 TrinketData[item]++;
+                IncreaseMagnetRange();
+                break;
+            case "Sugar Cube":
+                Debug.Log(item);
+                TrinketData[item]++;
+                stats[5] -= 0.08f;
+                break;
+            case "Copier":
+                Debug.Log(item);
+                TrinketData[item]++;
+                stats[4] += 1;
+                break;
+            case "Color Ink":
+                Debug.Log(item);
+                TrinketData[item]++;
+                stats[2] += 0.1f;
                 break;
             default:
                 Debug.Log("Error");
                 break;
         }
+        foreach (GameObject weapon in weapons)
+        {
+            weapon.GetComponent<WeaponBaseScript>().UpdateStats(stats);
+        }
+    }
+
+    void IncreaseMagnetRange()
+    {
+        stats[7] += 0.5f;
+        GetComponentInChildren<CircleCollider2D>().radius = stats[7];
     }
 
     // coroutines
