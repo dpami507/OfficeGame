@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public Enemy[] enemyAssets;
+    public GameObject[] enemyAssets;
 
     public List<GameObject> spawnedEnemies;
 
@@ -70,7 +70,7 @@ public class WaveSpawner : MonoBehaviour
         for (int i = 0; i < currentEnemyAmount; i++)
         {
             int j = UnityEngine.Random.Range(0, enemyAssets.Length);
-            GameObject _enemy = Instantiate(enemyAssets[j].asset);
+            GameObject _enemy = Instantiate(enemyAssets[j].gameObject);
             _enemy.transform.position = GetSpawnPos();
             spawnedEnemies.Add(_enemy);
         }
@@ -115,12 +115,4 @@ public class WaveSpawner : MonoBehaviour
             }
         }
     }
-}
-
-[Serializable]
-public class Enemy
-{
-    public string name;
-    public GameObject asset;
-    public int chance;
 }
