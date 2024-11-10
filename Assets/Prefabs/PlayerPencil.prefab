@@ -208,7 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  speed: 5
+  enemiesToPass: 0
+  speed: 7
   direction: {x: 0, y: 0, z: 0}
   maxLife: 10
   rb: {fileID: -7235421447956541772}

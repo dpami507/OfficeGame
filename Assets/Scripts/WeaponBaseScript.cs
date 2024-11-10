@@ -1,13 +1,26 @@
 using UnityEngine;
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 
 public class WeaponBaseScript : MonoBehaviour
 {
-    public float attackCooldown;
     public float lastAttack;
     public WaveSpawner enemies;
     public GameObject bullet;
-    public int level = 0;
+    public int level = 1;
     public string nameWeapon;
+    public string[] levelUpDecriptions;
+    // base weapon
+    public float attackCooldown;
+    public int numAttacks = 1;
+    public float damage;
+    public int enemiesToPass = 0;
+
+    // upgrades
+    public float cooldownUpgrade = 1.0f;
+    public int numExtraAttacks = 0;
+    public float damageUpgrade = 1.0f;
 
     private void Start()
     {
@@ -18,13 +31,50 @@ public class WeaponBaseScript : MonoBehaviour
     public virtual void Update()
     {
         lastAttack += Time.deltaTime;
-        if (lastAttack > attackCooldown)
+        if (lastAttack > attackCooldown * cooldownUpgrade)
         {
-            Attack();
             lastAttack = 0;
+            StartCoroutine(ShootWithDelay());
         }
     }
-    public virtual void Attack() {
+    public virtual void Attack(int attackNumber) {
         Debug.Log("Attack function was not overrriden");
+    }
+
+    public virtual string LevelDescription(int level) {
+        return "error";
+    }
+
+    public virtual void LevelSelfUp(int level) { }
+
+    // 0. Max Health
+     // 1. Move Speed
+     // 2. Strength
+     // 3. Duration
+     //4. Amount
+    // 5. Cooldown
+     // 6. Growth
+     // 7. Magnet
+    public void UpdateStats(float[] statsArray)
+    {
+        cooldownUpgrade = statsArray[5];
+        numExtraAttacks = (int)statsArray[4];
+        damageUpgrade = statsArray[2];
+    }
+
+
+    public IEnumerator Wait(int number)
+    {
+        yield return new WaitForSecondsRealtime(0.1f * number);
+    }
+
+    public IEnumerator ShootWithDelay() {
+        int totalAttacks = numAttacks + numExtraAttacks;
+        for (int i = 0; i < totalAttacks; i++)
+        {
+            Debug.Log("Shooting " + i);
+            Attack(i);
+            yield return new WaitForSecondsRealtime(0.1f);
+        }
     }
 }

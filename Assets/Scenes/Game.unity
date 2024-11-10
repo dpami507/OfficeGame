@@ -581,12 +581,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2a580ea132543142a4da2849ae8c626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
   lastAttack: 0
   enemies: {fileID: 185282423}
   bullet: {fileID: 8973689698952196476, guid: e4a8599355c07804f9e3f051746637c1, type: 3}
-  level: 0
+  level: 2
   nameWeapon: Pencil
+  levelUpDecriptions: []
+  attackCooldown: 1.2
+  numAttacks: 1
+  damage: 4
+  enemiesToPass: 0
+  cooldownUpgrade: 1
+  numExtraAttacks: 0
+  damageUpgrade: 1
 --- !u!1 &546022452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,7 +1469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1878138654
 Transform:
   m_ObjectHideFlags: 0
@@ -1490,12 +1497,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50991ddc8ac1024496f26303d1a87d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 1
   lastAttack: 0
   enemies: {fileID: 0}
   bullet: {fileID: 371932360535272325, guid: 0ab28f2808582a34490a5d0b7cd43fa9, type: 3}
-  level: 0
+  level: 1
   nameWeapon: Printer
+  levelUpDecriptions: []
+  attackCooldown: 4
+  numAttacks: 1
+  damage: 10
+  enemiesToPass: 3
+  cooldownUpgrade: 1
+  numExtraAttacks: 0
+  damageUpgrade: 1
   upwardsForce: 6
   sidewaysForce: 4
 --- !u!1 &2064411076

@@ -81,7 +81,13 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.tag == "PlayerAttack") {
             myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage);
-            Destroy(collision.gameObject);
+            if (collision.GetComponent<BulletScript>().enemiesToPass <= 0)
+            {
+                Destroy(collision.gameObject);
+            }
+            else {
+                collision.GetComponent<BulletScript>().enemiesToPass--;
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +14,9 @@ public class LevelScript : MonoBehaviour
      * 2. Printer
      * 3. Coffee
      * 4. Magnet
+     * 5. Sugar Cube
+     * 6. Copier
+     * 7. Color Ink
      */
     public List<GameObject> uiOfChoices;
     PlayerManager player;
@@ -19,10 +24,8 @@ public class LevelScript : MonoBehaviour
 
     // Random Weapons and Trinket data
     int choiceAt = 0;
+    string[] choices = new string[3];
     int[] levelsOfItems = { -1, -1, -1 };
-    string choice1 = "";
-    string choice2 = "";
-    string choice3 = "";
     GameObject[] itemsToDelete = new GameObject[3];
 
     // potential items to get randomly
@@ -36,9 +39,7 @@ public class LevelScript : MonoBehaviour
     private void Start()
     {
         // make sure that the choices are reset
-        choice1 = null;
-        choice2 = null;
-        choice3 = null;
+        choices = new string[3];
         choiceAt = 0;
         //possibleItems.Clear();
         //correspondingLevel.Clear();
@@ -47,9 +48,9 @@ public class LevelScript : MonoBehaviour
         // add code to randomize 
         player = FindFirstObjectByType<PlayerManager>();
         allWeaponData = player.weapons;
-        choice1 = RandomItemsAvailable();
-        choice2 = RandomItemsAvailable();
-        choice3 = RandomItemsAvailable();
+        for (int i = 0; i < choices.Length; i++) {
+            choices[i] = RandomItemsAvailable();
+        }
         RevealChoices();
         Debug.Log("Activated");
     }
@@ -71,7 +72,7 @@ public class LevelScript : MonoBehaviour
         foreach (GameObject weapon in allWeaponData)
         {
             temp = weapon.GetComponent<WeaponBaseScript>().nameWeapon;
-            if (weapon.GetComponent<WeaponBaseScript>().level < 8 && (temp != choice1 && temp != choice2 && temp != choice3) && player.numWeapons < 6)
+            if (weapon.GetComponent<WeaponBaseScript>().level <= 8 && (temp != choices[0] && temp != choices[1] && temp != choices[2]) && player.numWeapons < 6)
             {
                 possibleItems.Add(temp);
                 correspondingLevel.Add(weapon.GetComponent<WeaponBaseScript>().level);
@@ -80,31 +81,18 @@ public class LevelScript : MonoBehaviour
         // get all valid trinkets that aren't already chosen as an item
         foreach (string trinket in player.TrinketData.Keys)
         {
-            if (player.TrinketData[trinket] < 8 && (trinket != choice1 && trinket != choice2 && trinket != choice3) && player.numTrinkets < 6)
+            if (player.TrinketData[trinket] <= 5 && (trinket != choices[0] && trinket != choices[1] && trinket != choices[2]) && player.numTrinkets < 6)
             {
                 possibleItems.Add(trinket);
                 correspondingLevel.Add(player.TrinketData[trinket]);
             }
         }
+        // if there is at least one valid item left, randomly choose a value from the list and return that item.
         if (possibleItems.Count != 0)
         {
-            int num = Random.Range(0, possibleItems.Count -1);
-            Debug.Log(choiceAt + " - " + levelsOfItems[choiceAt] + " - " + possibleItems.Count + " - " + num);
-            Debug.Log(num + " - " + correspondingLevel[num]);
-            levelsOfItems[choiceAt] = 
-                correspondingLevel[num];
-            if (choice1 != null) {
-                Debug.Log("Choice 1: " + choice1);
-            }
-            if (choice2 != null)
-            {
-                Debug.Log("Choice 2: " + choice2);
-            }
-            if (choice3 != null)
-            {
-                Debug.Log("Choice 3: " + choice3);
-            }
-            Debug.Log("Possible item chosen: " + possibleItems[num]);
+            // debug leftover if necessary to test again
+            int num = Random.Range(0, possibleItems.Count );
+            levelsOfItems[choiceAt] = correspondingLevel[num];
             choiceAt++;
             return possibleItems[num];
         }
@@ -115,56 +103,24 @@ public class LevelScript : MonoBehaviour
     private void RevealChoices()
     {
         // choice one should be at y 65, choice two should be at y -15, choice 3 should be at y -95
-        // choice 1 setup and function assignment
-        if (choice1 != "Skip")
-        {
-            GameObject uiChoice1 = Instantiate(ReturnGameObject(choice1), gameObject.transform);
-            uiChoice1.transform.localPosition = new Vector3(transform.position.x * 0, 65, transform.position.z);
-            uiChoice1.GetComponent<Button>().onClick.AddListener(ChoiceOne);
-            uiChoice1.GetComponent<OptionInfoScript>().name.text = 
-                choice1 + " - " + 
-                (levelsOfItems[0] == 0 ? "New!": levelsOfItems[0] + 1);
-            // add custom descriptions later
-            itemsToDelete[0] = uiChoice1;
+        // choices setup and function assignment
+        int yLevel = 65;
+        for (int i = 0; i < choices.Length; i++) {
+            if (choices[i] != "Skip")
+            {
+                GameObject uiChoice = Instantiate(ReturnGameObject(choices[i]), gameObject.transform);
+                uiChoice.transform.localPosition = new Vector3(transform.position.x * 0, yLevel, transform.position.z);
+                uiChoice.GetComponent<OptionInfoScript>().data = choices[i];
+                uiChoice.GetComponent<OptionInfoScript>().player = player;
+                uiChoice.GetComponent<OptionInfoScript>().manage = this;
+                // you MUST keep this name variable the same of level ups will break for some reason lfmao
+                uiChoice.GetComponent<OptionInfoScript>().name.text = 
+                    choices[i] + " - " + (levelsOfItems[i] == 1 ? "New!" : levelsOfItems[i]);
+                uiChoice.GetComponent<OptionInfoScript>().description.text = player.LevelDescription(choices[i], levelsOfItems[i]);
+                itemsToDelete[i] = uiChoice;
+                yLevel -= 80;
+            }
         }
-
-        // choice 2 setup and function assignment
-        if (choice2 != "Skip")
-        {
-            GameObject uiChoice2 = Instantiate(ReturnGameObject(choice2), gameObject.transform);
-            uiChoice2.transform.localPosition = new Vector3(transform.position.x * 0, -15, transform.position.z);
-            uiChoice2.GetComponent<Button>().onClick.AddListener(ChoiceTwo);
-            uiChoice2.GetComponent<OptionInfoScript>().name.text = choice2 + " - " + (levelsOfItems[1] == 0 ? "New!" : levelsOfItems[1] + 1);
-            itemsToDelete[1] = uiChoice2;
-            // add custom descriptions later
-        }
-
-        if (choice3 != "Skip")
-        {
-            // choice 3 setup and function assignment
-            GameObject uiChoice3 = Instantiate(ReturnGameObject(choice3), gameObject.transform);
-            uiChoice3.transform.localPosition = new Vector3(transform.position.x * 0, -95, transform.position.z);
-            uiChoice3.GetComponent<Button>().onClick.AddListener(ChoiceThree);
-            uiChoice3.GetComponent<OptionInfoScript>().name.text = choice3 + " - " + (levelsOfItems[2] == 0 ? "New!" : levelsOfItems[2] + 1);
-            itemsToDelete[2] = uiChoice3;
-            // add custom descriptions later
-        }
-    }
-
-    public void ChoiceOne() 
-    {
-        player.ApplyLevelChoice(choice1);
-        DisableSelf();
-    }
-    public void ChoiceTwo()
-    {
-        player.ApplyLevelChoice(choice2);
-        DisableSelf();
-    }
-    public void ChoiceThree()
-    {
-        player.ApplyLevelChoice(choice3);
-        DisableSelf();
     }
 
     private GameObject ReturnGameObject(string name) {
@@ -177,8 +133,14 @@ public class LevelScript : MonoBehaviour
                 return uiOfChoices[3];
             case "Magnet":
                 return uiOfChoices[4];
+            case "Sugar Cube":
+                return uiOfChoices[5];
+            case "Copier":
+                return uiOfChoices[6];
+            case "Color Ink":
+                return uiOfChoices[7];
             default:
-                return uiOfChoices[1];
+                return uiOfChoices[0];
         }
     }
 }
