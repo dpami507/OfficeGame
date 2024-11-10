@@ -260,7 +260,7 @@ public class PlayerManager : MonoBehaviour
         inputActive = false;
         playerHealth.canTakeDamage = false; //Allow for dashing through enemies
 
-        rb.linearVelocity = (playerVelocity / 5) * dashSpeed;
+        rb.linearVelocity = (playerVelocity) * dashSpeed;
         yield return new WaitForSeconds(dashTime);
 
         inputActive = true;
