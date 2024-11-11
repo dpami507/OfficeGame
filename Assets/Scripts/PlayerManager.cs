@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     public float dashCooldownTime;
     float lastDashTime;
     bool inputActive;
+    public Image dashSprite;
 
     // player stats
     /* potential Stats to add:
@@ -109,8 +110,10 @@ public class PlayerManager : MonoBehaviour
             facingLeft = false;
         }
 
+        dashSprite.fillAmount = (Time.time - lastDashTime) / dashCooldownTime;
+
         //Dash
-        if (Input.GetKeyDown(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time)
+        if (Input.GetKey(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time)
         {
             StartCoroutine(Dash());
             lastDashTime = Time.time;
@@ -129,7 +132,7 @@ public class PlayerManager : MonoBehaviour
     void Die()
     {
         // add game over screen in the future
-        inputActive = false;
+        FindObjectOfType<MainMenuUI>().LoadScene("Game");
     }
 
     public void xpIncrease(int amount) {

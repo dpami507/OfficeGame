@@ -12,6 +12,8 @@ public class Health : MonoBehaviour
 
     public bool canTakeDamage;
 
+    public bool isPlayer;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -24,5 +26,7 @@ public class Health : MonoBehaviour
 
         currentHealth -= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
+
+        if (isPlayer) { FindObjectOfType<CameraFollow>().Shake(.25f); }
     }
 }

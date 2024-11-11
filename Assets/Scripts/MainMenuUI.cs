@@ -10,6 +10,14 @@ public class MainMenuUI : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            LoadScene("MainMenu");
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();
