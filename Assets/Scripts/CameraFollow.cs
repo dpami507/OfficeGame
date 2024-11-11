@@ -21,4 +21,12 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref vel, smoothTime);
     }
+
+    public void Shake(float amount)
+    {
+        float shakeAmountX = UnityEngine.Random.Range(-amount, amount);
+        float shakeAmountY = UnityEngine.Random.Range(-amount, amount);
+
+        transform.position = new Vector3(transform.position.x + shakeAmountX, transform.position.y + shakeAmountY, -10);
+    }
 }
