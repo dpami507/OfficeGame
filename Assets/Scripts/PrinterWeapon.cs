@@ -5,12 +5,12 @@ public class PrinterWeapon : WeaponBaseScript
 {
     public float upwardsForce = 8;
     public float sidewaysForce = 5;
-    public override void Attack(int attackNumber)
+    public override void Attack()
     {
         //StartCoroutine(Wait(attackNumber));
         GameObject printer = Instantiate(bullet, transform.position, Quaternion.identity);
-        printer.GetComponent<PrinterScript>().damage = damage * damageUpgrade;
-        printer.GetComponent<PrinterScript>().enemiesToPass = enemiesToPass;
+        float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade * 1.3f };
+        printer.GetComponent<PrinterScript>().SetOwnStats(stats, infinitePass);
         PlayerManager playerManager;
         Rigidbody2D rb;
         int facing;

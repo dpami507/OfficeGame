@@ -3,11 +3,15 @@ using UnityEngine;
 
 public class PencilScript : BulletScript
 {
-    public float speed;
     public Vector3 direction = Vector3.zero;
     float lifespan = 0.0f;
-    public float maxLife = 10.0f;
     public Rigidbody2D rb;
+
+    public override void SetOwnStats(float[] myNumStats, bool isInfinite)
+    {
+        base.SetOwnStats(myNumStats, isInfinite);
+    }
+
     void FixedUpdate()
     {
         transform.position -= direction * speed * Time.deltaTime;

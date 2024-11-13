@@ -63,7 +63,10 @@ public class PlayerManager : MonoBehaviour
         0, // 4. Amount
         1.00f, // 5. Cooldown
         1.0f, // 6. Growth
-        0.75f // 7. Magnet
+        0.75f, // 7. Magnet
+        1.0f, // 8. Weapon Speed
+        1 // 9. Area
+
     };
 
     // pause screen things
@@ -171,6 +174,8 @@ public class PlayerManager : MonoBehaviour
                 return weapons[0].GetComponent<PencilWeapon>().LevelDescription(level);
             case "Printer":
                 return weapons[1].GetComponent<PrinterWeapon>().LevelDescription(level);
+            case "PaperAirplane":
+                return weapons[2].GetComponent<PaperAirplaneWeapon>().LevelDescription(level);
             case "Coffee":
             case "Magnet":
             case "Sugar Cube":
@@ -205,6 +210,7 @@ public class PlayerManager : MonoBehaviour
         {
             case "Pencil":
             case "Printer":
+            case "PaperAirplane":
                 Debug.Log(item);
                 foreach (GameObject weapon in weapons) {
                     if (weapon.GetComponent<WeaponBaseScript>().nameWeapon == item) {
@@ -212,7 +218,6 @@ public class PlayerManager : MonoBehaviour
                         weapon.GetComponent<WeaponBaseScript>().level++;
                     }
                 }
-
                 break;
             case "Coffee":
                 Debug.Log(item);
