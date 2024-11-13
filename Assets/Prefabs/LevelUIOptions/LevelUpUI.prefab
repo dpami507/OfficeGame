@@ -142,8 +142,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Pick an item to obtain or to upgrade!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
+  m_sharedMaterial: {fileID: 8933351873991235343, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -353,8 +353,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level Up!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
+  m_sharedMaterial: {fileID: 8933351873991235343, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -575,6 +575,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7349293633530726708, guid: 15b0ca0cb88352d47a615339d42e2c2c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7431653635534001472, guid: 15b0ca0cb88352d47a615339d42e2c2c, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
+    - target: {fileID: 7431653635534001472, guid: 15b0ca0cb88352d47a615339d42e2c2c, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 8933351873991235343, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
+    - target: {fileID: 7431653635534001472, guid: 15b0ca0cb88352d47a615339d42e2c2c, type: 3}
+      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8037026800304198811, guid: 15b0ca0cb88352d47a615339d42e2c2c, type: 3}
