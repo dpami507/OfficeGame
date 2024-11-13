@@ -12,11 +12,12 @@ public class LevelScript : MonoBehaviour
     /* List of all Weapon and Trinket names:
      * 1. Pencil
      * 2. Printer
-     * 3. Coffee
-     * 4. Magnet
-     * 5. Sugar Cube
-     * 6. Copier
-     * 7. Color Ink
+     * 3. Paper Airplane
+     * 4. Coffee
+     * 5. Magnet
+     * 6. Sugar Cube
+     * 7. Copier
+     * 8. Color Ink
      */
     public List<GameObject> uiOfChoices;
     PlayerManager player;
@@ -129,16 +130,18 @@ public class LevelScript : MonoBehaviour
                 return uiOfChoices[1];
             case "Printer":
                 return uiOfChoices[2];
-            case "Coffee":
+            case "PaperAirplane":
                 return uiOfChoices[3];
-            case "Magnet":
+            case "Coffee":
                 return uiOfChoices[4];
-            case "Sugar Cube":
+            case "Magnet":
                 return uiOfChoices[5];
-            case "Copier":
+            case "Sugar Cube":
                 return uiOfChoices[6];
-            case "Color Ink":
+            case "Copier":
                 return uiOfChoices[7];
+            case "Color Ink":
+                return uiOfChoices[8];
             default:
                 return uiOfChoices[0];
         }

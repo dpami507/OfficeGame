@@ -5,7 +5,7 @@ using UnityEngine;
 public class PencilWeapon : WeaponBaseScript
 {
     
-    public override void Attack(int attackNumber)
+    public override void Attack()
     {
         //StartCoroutine(Wait(attackNumber));
         // find nearest enemy
@@ -31,8 +31,8 @@ public class PencilWeapon : WeaponBaseScript
             Quaternion bulletRot = Quaternion.Euler(0, 0, rotAngle);
             GameObject playerPencil = Instantiate(bullet, transform.position, bulletRot);
             playerPencil.GetComponent<PencilScript>().direction = direction;
-            playerPencil.GetComponent<PencilScript>().damage = damage * damageUpgrade;
-            playerPencil.GetComponent<PencilScript>().enemiesToPass = enemiesToPass;
+            float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade };
+            playerPencil.GetComponent<PencilScript>().SetOwnStats(stats, infinitePass);
         }
     }
 

@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour
     {
         tDist = Vector2.Distance(transform.position, target.position);
 
-        if (tDist <= attackDist)
+        if (tDist <= attackDist/3)
         {
             Attack();
             attacking = true;
@@ -92,9 +92,12 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.tag == "PlayerAttack") {
             myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage);
-            if (collision.GetComponent<BulletScript>().enemiesToPass <= 0)
+            if (collision.GetComponent<BulletScript>().enemiesToPass <= 0 && !collision.GetComponent<BulletScript>().infinitePass)
             {
                 Destroy(collision.gameObject);
+            }
+            else if (collision.GetComponent<BulletScript>().infinitePass) {
+                return;
             }
             else {
                 collision.GetComponent<BulletScript>().enemiesToPass--;

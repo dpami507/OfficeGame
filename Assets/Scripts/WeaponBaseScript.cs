@@ -15,12 +15,19 @@ public class WeaponBaseScript : MonoBehaviour
     public float attackCooldown;
     public int numAttacks = 1;
     public float damage;
+    public bool infinitePass = false;
     public int enemiesToPass = 0;
+    public float area = 1;
+    public float duration = 3;
+    public float speed = 0.5f;
 
     // upgrades
     public float cooldownUpgrade = 1.0f;
     public int numExtraAttacks = 0;
     public float damageUpgrade = 1.0f;
+    public float areaUpgrade = 1.0f;
+    public float durationUpgrade = 1.0f;
+    public float speedUpgrade = 1.0f;
 
     private void Start()
     {
@@ -34,10 +41,16 @@ public class WeaponBaseScript : MonoBehaviour
         if (lastAttack > attackCooldown * cooldownUpgrade)
         {
             lastAttack = 0;
-            StartCoroutine(ShootWithDelay());
+            if (nameWeapon != "PaperAirplane")
+            {
+                StartCoroutine(ShootWithDelay());
+            }
+            else {
+                Attack();
+            }
         }
     }
-    public virtual void Attack(int attackNumber) {
+    public virtual void Attack() {
         Debug.Log("Attack function was not overrriden");
     }
 
@@ -55,12 +68,17 @@ public class WeaponBaseScript : MonoBehaviour
     // 5. Cooldown
      // 6. Growth
      // 7. Magnet
+     // 8. Weapon Speed
+     // 9. Area
     public void UpdateStats(float[] statsArray)
     {
-        cooldownUpgrade = statsArray[5];
-        numExtraAttacks = (int)statsArray[4];
         damageUpgrade = statsArray[2];
-    }
+        durationUpgrade = statsArray[3];
+        numExtraAttacks = (int)statsArray[4];
+        cooldownUpgrade = statsArray[5];
+        speedUpgrade = statsArray[8];
+        areaUpgrade = statsArray[9];
+}
 
 
     public IEnumerator Wait(int number)
@@ -73,7 +91,7 @@ public class WeaponBaseScript : MonoBehaviour
         for (int i = 0; i < totalAttacks; i++)
         {
             Debug.Log("Shooting " + i);
-            Attack(i);
+            Attack();
             yield return new WaitForSecondsRealtime(0.1f);
         }
     }

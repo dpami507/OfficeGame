@@ -592,10 +592,17 @@ MonoBehaviour:
   attackCooldown: 1.2
   numAttacks: 1
   damage: 4
+  infinitePass: 0
   enemiesToPass: 0
+  area: 1
+  duration: 3
+  speed: 5
   cooldownUpgrade: 1
   numExtraAttacks: 0
   damageUpgrade: 1
+  areaUpgrade: 1
+  durationUpgrade: 1
+  speedUpgrade: 1
 --- !u!1 &546022452
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +1026,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 538457374}
   - {fileID: 1878138653}
+  - {fileID: 837909779}
   levelXp: 5
   level: 0
   xpBar: {fileID: 2120168465}
@@ -1061,10 +1069,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 285833370}
   - {fileID: 1004927325}
   - {fileID: 538457375}
   - {fileID: 1878138654}
-  - {fileID: 285833370}
+  - {fileID: 837909780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &687816795
@@ -1113,6 +1122,70 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &837909779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 837909780}
+  - component: {fileID: 837909781}
+  m_Layer: 7
+  m_Name: PaperAirplaneWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &837909780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837909779}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 687816794}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &837909781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837909779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0531c6e9de9f4a747b863e07f104116f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastAttack: 0
+  enemies: {fileID: 0}
+  bullet: {fileID: 8159467530342408964, guid: 22d76d79989f274458d3cccb2c4e96d3, type: 3}
+  level: 1
+  nameWeapon: PaperAirplane
+  levelUpDecriptions: []
+  attackCooldown: 6
+  numAttacks: 1
+  damage: 5
+  infinitePass: 1
+  enemiesToPass: 0
+  area: 1
+  duration: 3
+  speed: 3
+  cooldownUpgrade: 1
+  numExtraAttacks: 0
+  damageUpgrade: 1
+  areaUpgrade: 1
+  durationUpgrade: 1
+  speedUpgrade: 1
 --- !u!1 &1004927324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,10 +3928,17 @@ MonoBehaviour:
   attackCooldown: 4
   numAttacks: 1
   damage: 10
+  infinitePass: 0
   enemiesToPass: 3
+  area: 1
+  duration: 3
+  speed: 3
   cooldownUpgrade: 1
   numExtraAttacks: 0
   damageUpgrade: 1
+  areaUpgrade: 1
+  durationUpgrade: 1
+  speedUpgrade: 1
   upwardsForce: 6
   sidewaysForce: 4
 --- !u!1 &1911097286
