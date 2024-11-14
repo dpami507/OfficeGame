@@ -151,7 +151,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 25
-  m_Sprite: {fileID: 68264198, guid: 1ae95a9afd2e1c14e81838c8e401c891, type: 3}
+  m_Sprite: {fileID: 720373894, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -309,6 +309,7 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 706782853937451273}
   canTakeDamage: 0
+  isPlayer: 0
 --- !u!50 &2190815076446404326
 Rigidbody2D:
   serializedVersion: 5

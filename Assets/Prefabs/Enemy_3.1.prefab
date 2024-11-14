@@ -173,6 +173,7 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 5371855234066280140}
   canTakeDamage: 0
+  isPlayer: 0
 --- !u!50 &3986098657336310890
 Rigidbody2D:
   serializedVersion: 5
@@ -473,7 +474,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 25
-  m_Sprite: {fileID: -1147058645, guid: 1ae95a9afd2e1c14e81838c8e401c891, type: 3}
+  m_Sprite: {fileID: -1399157725, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
