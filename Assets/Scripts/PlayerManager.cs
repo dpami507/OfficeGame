@@ -36,6 +36,9 @@ public class PlayerManager : MonoBehaviour
     bool inputActive;
     public Image dashSprite;
 
+    //Animation
+    public Animator animator;
+
     // player stats
     /* potential Stats to add:
      * 0. Max Health
@@ -128,8 +131,17 @@ public class PlayerManager : MonoBehaviour
         if (!inputActive || isPaused) { return; }
 
         //Set Velocity
-        playerVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        rb.linearVelocity = playerVelocity * speed * stats[1];
+
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
+        playerVelocity = new Vector2(x, y);
+
+        if(Mathf.Abs(x) > 0 || Mathf.Abs(y) > 0)
+            animator.SetBool("running", true);
+        else
+            animator.SetBool("running", false);
+
+        rb.linearVelocity = playerVelocity.normalized * speed * stats[1];
     }
 
     void Die()
@@ -268,7 +280,7 @@ public class PlayerManager : MonoBehaviour
         inputActive = false;
         playerHealth.canTakeDamage = false; //Allow for dashing through enemies
 
-        rb.linearVelocity = (playerVelocity) * dashSpeed;
+        rb.linearVelocity = playerVelocity.normalized * dashSpeed;
         yield return new WaitForSeconds(dashTime);
 
         inputActive = true;

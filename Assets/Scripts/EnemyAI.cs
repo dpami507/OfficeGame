@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
     Transform target;
     SpriteRenderer sprite;
 
+    public Sprite[] backgroundSprites;
+
     bool moving;
     public float speed;
 
@@ -21,6 +23,8 @@ public class EnemyAI : MonoBehaviour
     public float lastAttackTime;
     public int damage;
 
+    public GameObject blood;
+
 
     private void Start()
     {
@@ -28,6 +32,8 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         myHealth = GetComponent<Health>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        sprite.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Length)];
+
     }
 
     private void Update()
@@ -85,6 +91,7 @@ public class EnemyAI : MonoBehaviour
     void Die()
     {
         Instantiate(xpGemToSpawn, transform.position, Quaternion.identity);
+        Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
         Destroy(this.gameObject);
     }
 

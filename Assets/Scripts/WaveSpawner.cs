@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
@@ -9,73 +10,62 @@ public class WaveSpawner : MonoBehaviour
 
     public List<GameObject> spawnedEnemies;
 
-    public float waveStartTime;
+    public float waveDelay;
+    public float waveDelayDecrease = 0.09f;
+    public float waveDelayBase = 5;
+    public float minDelay = 1f;
+
+    public float waveEnemies;
+    public float waveEnemiesIncrease = .1f;
+    public float waveEnemiesBase = 5;
+    public float maxEnemiesSpawn = 50;
+
+    public float maxEnemies = 1000;
 
     public Camera playerCamera;
 
-    public int amountPerWave;
-    public int currentEnemyAmount;
-    public float enemyIncreasePerWave;
-
-    public int maxWaveTime;
-    public float waveStartedTime;
-
-    public bool waveOngoing;
-    public bool enemiesSpawning;
-
     public int wave = 0;
 
-    void Update()
+    private void Start()
     {
-        for (int i = 0; i < spawnedEnemies.Count; i++)
-        {
-            if (spawnedEnemies[i].gameObject == null) { spawnedEnemies.Remove(spawnedEnemies[i].gameObject); }
-        }
-
-        if (waveOngoing == false)
-        {
-            Debug.Log("Starting Wave");
-            StartCoroutine(WaveStart());
-        }
-
-        if(spawnedEnemies.Count <= 0 && enemiesSpawning == false)
-        {
-            Debug.Log("Stopping Wave");
-            WaveOver();
-        }
-
-        if(Time.time - waveStartedTime > maxWaveTime)
-        {
-            StartCoroutine(WaveStart());
-        }
+        StartCoroutine(WaveStart());
     }
 
-    void WaveOver()
+    private void Update()
     {
-        waveOngoing = false;
+        foreach (GameObject item in spawnedEnemies)
+        {
+            if(item == null)
+            {
+                spawnedEnemies.Remove(item);
+            }
+        }
     }
 
     IEnumerator WaveStart()
     {
-        wave++;
-        waveStartedTime = Time.time;
-
-        waveOngoing = true;
-        enemiesSpawning = true;
-
-        currentEnemyAmount = Mathf.RoundToInt(Mathf.Pow((enemyIncreasePerWave * wave), 2) + amountPerWave); 
-
-        yield return new WaitForSeconds(waveStartTime);
-
-        for (int i = 0; i < currentEnemyAmount; i++)
+        if(spawnedEnemies.Count < maxEnemies)
         {
-            int j = UnityEngine.Random.Range(0, enemyAssets.Length);
-            GameObject _enemy = Instantiate(enemyAssets[j].gameObject);
-            _enemy.transform.position = GetSpawnPos();
-            spawnedEnemies.Add(_enemy);
+            wave++;
+
+            waveDelay = (waveDelayDecrease * wave) + waveDelayBase;
+            waveDelay = Mathf.Clamp(waveDelay, minDelay, waveDelayBase);
+
+            waveEnemies = Mathf.RoundToInt((waveEnemiesIncrease * wave) + waveEnemiesBase);
+            waveEnemies = Mathf.Clamp(waveEnemies, waveEnemiesBase, maxEnemiesSpawn);
+
+            for (int i = 0; i < waveEnemies; i++)
+            {
+                int j = UnityEngine.Random.Range(0, enemyAssets.Length);
+                GameObject _enemy = Instantiate(enemyAssets[j].gameObject);
+                _enemy.transform.position = GetSpawnPos();
+                spawnedEnemies.Add(_enemy);
+            }
         }
 
-        enemiesSpawning = false;
+        yield return new WaitForSeconds(waveDelay);
+
+        StartCoroutine(WaveStart());
     }
 
     Vector2 GetSpawnPos()
