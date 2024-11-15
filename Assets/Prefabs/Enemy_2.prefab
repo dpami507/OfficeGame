@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 3986098657336310890}
   - component: {fileID: 7607847021810460701}
   m_Layer: 6
-  m_Name: Enemy_3.1
+  m_Name: Enemy_2
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,11 +152,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xpGemToSpawn: {fileID: 200178325981620798, guid: 83d404e7f15977d4482f97fc0d88acc7, type: 3}
+  backgroundSprites:
+  - {fileID: -1399157725, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
+  - {fileID: 1186103303, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
+  - {fileID: 1153102335, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
+  - {fileID: 60047698, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
+  - {fileID: -618611574, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
   speed: 1
   attackDist: 1.5
   lastCooldownTime: 0.5
   lastAttackTime: 2
   damage: 10
+  blood: {fileID: 4982246321979475921, guid: af1b97dc2b9fa3d48b3f4bbc41e026fc, type: 3}
 --- !u!114 &575361091323240071
 MonoBehaviour:
   m_ObjectHideFlags: 0
