@@ -16,5 +16,6 @@ public class BulletScript : MonoBehaviour
         speed = myNumStats[3];
         area = myNumStats[4];
         infinitePass = isInfinite;
+        gameObject.transform.localScale = transform.localScale * area;
     }
 }

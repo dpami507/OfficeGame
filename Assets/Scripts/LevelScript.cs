@@ -84,8 +84,16 @@ public class LevelScript : MonoBehaviour
         {
             if (player.TrinketData[trinket] <= 5 && (trinket != choices[0] && trinket != choices[1] && trinket != choices[2]) && player.numTrinkets < 6)
             {
-                possibleItems.Add(trinket);
-                correspondingLevel.Add(player.TrinketData[trinket]);
+                if (trinket != "Copier")
+                {
+                    possibleItems.Add(trinket);
+                    correspondingLevel.Add(player.TrinketData[trinket]);
+                }
+                // the copier's level max is now lower.
+                else if (player.TrinketData[trinket] <= 2) {
+                    possibleItems.Add(trinket);
+                    correspondingLevel.Add(player.TrinketData[trinket]);
+                }
             }
         }
         // if there is at least one valid item left, randomly choose a value from the list and return that item.
@@ -130,7 +138,7 @@ public class LevelScript : MonoBehaviour
                 return uiOfChoices[1];
             case "Printer":
                 return uiOfChoices[2];
-            case "PaperAirplane":
+            case "Paper Airplane":
                 return uiOfChoices[3];
             case "Coffee":
                 return uiOfChoices[4];
@@ -142,6 +150,10 @@ public class LevelScript : MonoBehaviour
                 return uiOfChoices[7];
             case "Color Ink":
                 return uiOfChoices[8];
+            case "Printer Paper":
+                return uiOfChoices[9];
+            case "Smart Glasses":
+                return uiOfChoices[10];
             default:
                 return uiOfChoices[0];
         }

@@ -60,15 +60,15 @@ public class PlayerManager : MonoBehaviour
     // Current added stats in order of index:
     float[] stats = {
         100, // 0. Max Health
-        1.0f, // 1. Move Speed
-        1.0f, // 2. Strength
+        1.0f, // 1. Move Speed -
+        1.0f, // 2. Strength -
         1.0f, // 3. Duration
-        0, // 4. Amount
-        1.00f, // 5. Cooldown
-        1.0f, // 6. Growth
-        0.75f, // 7. Magnet
+        0, // 4. Amount -
+        1.00f, // 5. Cooldown -
+        1.0f, // 6. Growth -
+        0.75f, // 7. Magnet -
         1.0f, // 8. Weapon Speed
-        1 // 9. Area
+        1.0f // 9. Area -
 
     };
 
@@ -81,11 +81,13 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         // Add all trinkets and starting level, maybe add the weapons to this dictionary too?
-        TrinketData.Add("Coffee", 1);
-        TrinketData.Add("Magnet", 1);
-        TrinketData.Add("Sugar Cube", 1);
-        TrinketData.Add("Copier", 1);
-        TrinketData.Add("Color Ink", 1);
+        TrinketData.Add("Coffee", 1); // Speed Upgrade
+        TrinketData.Add("Magnet", 1); // Magnet Upgrade
+        TrinketData.Add("Sugar Cube", 1); // Cooldown Upgrade
+        TrinketData.Add("Copier", 1); // Amount Upgrade
+        TrinketData.Add("Color Ink", 1); // Damage Upgrade
+        TrinketData.Add("Printer Paper", 1); // Area Upgrade
+        TrinketData.Add("Smart Glasses", 1); // Growth Upgrade
 
         rb = GetComponent<Rigidbody2D>(); //Get Rigidbody
         playerHealth = GetComponent<Health>(); // set up health
@@ -151,7 +153,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     public void xpIncrease(int amount) {
-        xp += amount;
+        xp += amount * stats[6];
         // since you only get xp when you grab a gem, only need to check once you hit a trigger.
         if (xp >= levelXp)
         {
@@ -186,13 +188,15 @@ public class PlayerManager : MonoBehaviour
                 return weapons[0].GetComponent<PencilWeapon>().LevelDescription(level);
             case "Printer":
                 return weapons[1].GetComponent<PrinterWeapon>().LevelDescription(level);
-            case "PaperAirplane":
+            case "Paper Airplane":
                 return weapons[2].GetComponent<PaperAirplaneWeapon>().LevelDescription(level);
             case "Coffee":
             case "Magnet":
             case "Sugar Cube":
             case "Copier":
             case "Color Ink":
+            case "Printer Paper":
+            case "Smart Glasses":
                 return TrinketDescription(item);
             default:
                 return "error2";
@@ -210,7 +214,11 @@ public class PlayerManager : MonoBehaviour
             case "Copier":
                 return "Shoot an additional projectile.";
             case "Color Ink":
-                return "Increase damage by 20%.";
+                return "Increase damage by 10%.";
+            case "Printer Paper":
+                return "Increase size of weapons by 10%.";
+            case "Smart Glasses":
+                return "Increase xp gain by 10%.";
             default:
                 return "Error1";
         }
@@ -222,7 +230,7 @@ public class PlayerManager : MonoBehaviour
         {
             case "Pencil":
             case "Printer":
-            case "PaperAirplane":
+            case "Paper Airplane":
                 Debug.Log(item);
                 foreach (GameObject weapon in weapons) {
                     if (weapon.GetComponent<WeaponBaseScript>().nameWeapon == item) {
@@ -255,6 +263,16 @@ public class PlayerManager : MonoBehaviour
                 Debug.Log(item);
                 TrinketData[item]++;
                 stats[2] += 0.1f;
+                break;
+            case "Printer Paper":
+                Debug.Log(item);
+                TrinketData[item]++;
+                stats[9] += 0.1f;
+                break;
+            case "Smart Glasses":
+                Debug.Log(item);
+                TrinketData[item]++;
+                stats[6] += 0.1f;
                 break;
             default:
                 Debug.Log("Error");

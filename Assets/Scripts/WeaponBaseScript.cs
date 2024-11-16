@@ -41,7 +41,7 @@ public class WeaponBaseScript : MonoBehaviour
         if (lastAttack > attackCooldown * cooldownUpgrade)
         {
             lastAttack = 0;
-            if (nameWeapon != "PaperAirplane")
+            if (nameWeapon != "Paper Airplane")
             {
                 StartCoroutine(ShootWithDelay());
             }
