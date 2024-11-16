@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     public List<GameObject> weapons;
 
     // level and experience variables
-    float xp = 0;
+    public float xp = 0;
     public int levelXp = 5;
     public int level = 1;
     public Image xpBar;
