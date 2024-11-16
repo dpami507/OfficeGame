@@ -369,7 +369,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -1}
+  m_AnchoredPosition: {x: -2, y: -1}
   m_SizeDelta: {x: 15, y: 15}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &503946975
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 5
+  m_text: XXX
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
   m_sharedMaterial: {fileID: 8933351873991235343, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
+  m_TextWrappingMode: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -481,6 +481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 538457375}
   - component: {fileID: 538457376}
+  - component: {fileID: 538457377}
   m_Layer: 7
   m_Name: PencilWeapon
   m_TagString: Untagged
@@ -535,6 +536,20 @@ MonoBehaviour:
   areaUpgrade: 1
   durationUpgrade: 1
   speedUpgrade: 1
+--- !u!114 &538457377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538457374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6053cc33e0fd09c4bb0db910ab78fafa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closestObject: {fileID: 0}
+  weapon: {fileID: 538457376}
 --- !u!1 &621314531
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +841,7 @@ MonoBehaviour:
   - {fileID: 538457374}
   - {fileID: 1878138653}
   - {fileID: 837909779}
+  xp: 0
   levelXp: 5
   level: 0
   xpBar: {fileID: 2120168465}

@@ -92,6 +92,9 @@ public class EnemyAI : MonoBehaviour
     {
         Instantiate(xpGemToSpawn, transform.position, Quaternion.identity);
         Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
+
+        FindAnyObjectByType<WaveSpawner>().spawnedEnemies.Remove(this.gameObject);
+
         Destroy(this.gameObject);
     }
 
