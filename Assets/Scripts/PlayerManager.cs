@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour
     // dependencies and refrences
     Health playerHealth;
     Rigidbody2D rb;
-    SpriteRenderer mySprite;
+    public SpriteRenderer mySprite;
     public List<GameObject> weapons;
 
     // level and experience variables
@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     public int level = 1;
     public Image xpBar;
     public TMP_Text levelTxt;
+    public GameObject collectionCircle;
 
     // weapon and trinket trackers
 
@@ -91,7 +92,6 @@ public class PlayerManager : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>(); //Get Rigidbody
         playerHealth = GetComponent<Health>(); // set up health
-        mySprite = GetComponentInChildren<SpriteRenderer>(); // get access to sprite
         inputActive = true; //Allow Movement
         lastDashTime = -dashCooldownTime; //Allow Imediate Dash
         UpdateXPBar(); //Update XP Bar;
@@ -119,6 +119,8 @@ public class PlayerManager : MonoBehaviour
         }
 
         dashSprite.fillAmount = (Time.time - lastDashTime) / dashCooldownTime;
+
+        collectionCircle.transform.Rotate(0.0f, 0.0f, 0.05f, Space.Self);
 
         //Dash
         if (Input.GetKey(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time)
@@ -149,7 +151,9 @@ public class PlayerManager : MonoBehaviour
     void Die()
     {
         // add game over screen in the future
-        FindObjectOfType<MainMenuUI>().LoadScene("Game");
+        FindFirstObjectByType<DeathScreenManager>().showing = true;
+        FindFirstObjectByType<CameraFollow>().ForcePos();
+        Time.timeScale = 0;
     }
 
     public void xpIncrease(int amount) {
@@ -161,7 +165,7 @@ public class PlayerManager : MonoBehaviour
             {
                 // remove the xp needed to level up, then double the needed xp to level up.
                 xp -= levelXp;
-                levelXp = Mathf.RoundToInt(Mathf.Floor(level + (50 * Mathf.Pow(2, level / 7f)) - 40));
+                levelXp = Mathf.RoundToInt(Mathf.Floor(level + (50 * Mathf.Pow(2, level / 3f)) - 40));
                 LevelUp();
                 StartCoroutine(Wait());
             } while (xp >= levelXp);
@@ -177,6 +181,7 @@ public class PlayerManager : MonoBehaviour
 
     private void LevelUp() {
         level++;
+        FindFirstObjectByType<DeathScreenManager>().level = level;
         Debug.Log("Leveled up to level " + level);
         FindFirstObjectByType<MainMenuUI>().PauseGame(levelUI);
     }
@@ -288,6 +293,7 @@ public class PlayerManager : MonoBehaviour
     {
         stats[7] += 0.5f;
         GetComponentInChildren<CircleCollider2D>().radius = stats[7];
+        collectionCircle.transform.localScale = new Vector3(stats[7] * 2, stats[7] * 2, stats[7] * 2);
     }
 
     // coroutines
