@@ -9,14 +9,9 @@ public class ItemPickupScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "xpSmall")
+        if (collision.GetComponent<XP_Script>())
         {
-            player.xpIncrease(1);
-            Destroy(collision.gameObject);
-        }
-        if (collision.tag == "xpMedium")
-        {
-            player.xpIncrease(5);
+            player.xpIncrease(collision.GetComponent<XP_Script>().xpValue);
             Destroy(collision.gameObject);
         }
     }

@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    public GameObject xpGemToSpawn;
+    public GameObject[] xpGemToSpawn;
     Health myHealth;
     Transform target;
-    SpriteRenderer sprite;
+    public SpriteRenderer sprite;
 
-    public Sprite[] backgroundSprites;
+    public Color[] hairColors;
+
+    public GameObject[] hairChoices;
+    public GameObject selectedHair;
 
     bool moving;
     public float speed;
@@ -31,14 +34,22 @@ public class EnemyAI : MonoBehaviour
         target = FindFirstObjectByType<PlayerManager>().transform;
         rb = GetComponent<Rigidbody2D>();
         myHealth = GetComponent<Health>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        sprite.sprite = backgroundSprites[Random.Range(0, backgroundSprites.Length)];
+
+        foreach (GameObject choice in hairChoices)
+        {
+            choice.SetActive(false);
+        }
+
+        selectedHair = hairChoices[Random.Range(0, hairChoices.Length)].gameObject;
+        selectedHair.SetActive(true);
+        selectedHair.GetComponent<SpriteRenderer>().color = hairColors[Random.Range(0, hairColors.Length)];
 
     }
 
     private void Update()
     {
         tDist = Vector2.Distance(transform.position, target.position);
+
 
         if (tDist <= attackDist/3)
         {
@@ -71,10 +82,12 @@ public class EnemyAI : MonoBehaviour
         if(target.position.x < transform.position.x)
         {
             sprite.flipX = true;   
+            selectedHair.GetComponent<SpriteRenderer>().flipX = true;   
         }
         else
         {
             sprite.flipX = false;
+            selectedHair.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 
@@ -90,10 +103,13 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        Instantiate(xpGemToSpawn, transform.position, Quaternion.identity);
+        Quaternion randRot = Quaternion.Euler(0, 0, Random.Range(0, 360));
+        Instantiate(xpGemToSpawn[Random.Range(0, xpGemToSpawn.Length)], transform.position, randRot);
         Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
 
         FindAnyObjectByType<WaveSpawner>().spawnedEnemies.Remove(this.gameObject);
+
+        FindFirstObjectByType<DeathScreenManager>().kills++;
 
         Destroy(this.gameObject);
     }

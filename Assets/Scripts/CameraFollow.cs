@@ -17,11 +17,13 @@ public class CameraFollow : MonoBehaviour
 
     public float rotStrength;
     public float shakeStrength;
+
+    Vector3 desiredPosition;
     
     
     private void FixedUpdate()
     {
-        Vector3 desiredPosition = target.position + offset + (new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 0f) / rbSmooth);
+        desiredPosition = target.position + offset + (new Vector3(rb.linearVelocity.x, rb.linearVelocity.y, 0f) / rbSmooth);
 
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref vel, smoothTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, smoothTime);
@@ -33,6 +35,12 @@ public class CameraFollow : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x + shakeAmount * shakeStrength, transform.position.y + shakeAmount * shakeStrength, -10);
         transform.rotation = Quaternion.Euler(0, 0, rotStrength * shakeAmount);
+    }
+
+    public void ForcePos()
+    {
+        transform.position = desiredPosition;
+        transform.rotation = Quaternion.identity;
     }
 
     int RandomNumber()

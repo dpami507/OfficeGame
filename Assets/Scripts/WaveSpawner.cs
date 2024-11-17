@@ -25,9 +25,11 @@ public class WaveSpawner : MonoBehaviour
     public Camera playerCamera;
 
     public int wave = 0;
+    public bool spawning;
 
     private void Start()
     {
+        spawning = true;
         StartCoroutine(WaveStart());
     }
 
@@ -44,28 +46,31 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator WaveStart()
     {
-        if(spawnedEnemies.Count < maxEnemies)
+        if (spawning)
         {
-            wave++;
-
-            waveDelay = (waveDelayDecrease * wave) + waveDelayBase;
-            waveDelay = Mathf.Clamp(waveDelay, minDelay, waveDelayBase);
-
-            waveEnemies = Mathf.RoundToInt((waveEnemiesIncrease * wave) + waveEnemiesBase);
-            waveEnemies = Mathf.Clamp(waveEnemies, waveEnemiesBase, maxEnemiesSpawn);
-
-            for (int i = 0; i < waveEnemies; i++)
+            if (spawnedEnemies.Count < maxEnemies)
             {
-                int j = UnityEngine.Random.Range(0, enemyAssets.Length);
-                GameObject _enemy = Instantiate(enemyAssets[j].gameObject);
-                _enemy.transform.position = GetSpawnPos();
-                spawnedEnemies.Add(_enemy);
+                wave++;
+
+                waveDelay = (waveDelayDecrease * wave) + waveDelayBase;
+                waveDelay = Mathf.Clamp(waveDelay, minDelay, waveDelayBase);
+
+                waveEnemies = Mathf.RoundToInt((waveEnemiesIncrease * wave) + waveEnemiesBase);
+                waveEnemies = Mathf.Clamp(waveEnemies, waveEnemiesBase, maxEnemiesSpawn);
+
+                for (int i = 0; i < waveEnemies; i++)
+                {
+                    int j = UnityEngine.Random.Range(0, enemyAssets.Length);
+                    GameObject _enemy = Instantiate(enemyAssets[j].gameObject);
+                    _enemy.transform.position = GetSpawnPos();
+                    spawnedEnemies.Add(_enemy);
+                }
             }
+
+            yield return new WaitForSeconds(waveDelay);
+
+            StartCoroutine(WaveStart());
         }
-
-        yield return new WaitForSeconds(waveDelay);
-
-        StartCoroutine(WaveStart());
     }
 
     Vector2 GetSpawnPos()
