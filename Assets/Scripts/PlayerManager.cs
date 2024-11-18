@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     Rigidbody2D rb;
     public SpriteRenderer mySprite;
     public List<GameObject> weapons;
+    public PauseScreenScript pause;
 
     // level and experience variables
     public float xp = 0;
@@ -22,7 +23,6 @@ public class PlayerManager : MonoBehaviour
     public GameObject collectionCircle;
 
     // weapon and trinket trackers
-
     public int numWeapons = 1;
     public int numTrinkets = 0;
     public Dictionary<string, int> TrinketData = new();
@@ -127,6 +127,12 @@ public class PlayerManager : MonoBehaviour
             StartCoroutine(Dash());
             lastDashTime = Time.time;
         }
+
+        // pause
+        if (Input.GetKey(KeyCode.Escape) && !pause.isActive)
+        {
+            pause.PauseGame();
+        }
     }
     private void FixedUpdate()
     {
@@ -175,21 +181,19 @@ public class PlayerManager : MonoBehaviour
     public void xpIncrease(int amount) {
         xp += amount * stats[6];
         // since you only get xp when you grab a gem, only need to check once you hit a trigger.
-        if (xp >= levelXp)
-        {
-            do
-            {
-                // remove the xp needed to level up, then double the needed xp to level up.
-                xp -= levelXp;
-                levelXp = Mathf.RoundToInt((Mathf.Pow(9 * level, 2) + (569 * level) + 560) / 80);
-                LevelUp();
-                StartCoroutine(Wait());
-            } while (xp >= levelXp);
-        }
+        CheckLevelAgain();
         UpdateXPBar();
     }
 
-    void UpdateXPBar()
+    public void CheckLevelAgain() {
+        if (xp >= levelXp) {
+            xp -= levelXp;
+            levelXp = Mathf.RoundToInt((Mathf.Pow(9 * level, 2) + (569 * level) + 560) / 80);
+            LevelUp();
+        }
+    }
+
+    void UpdateXPBar() 
     {
         xpBar.fillAmount = xp / (float)levelXp;
         levelTxt.text = level.ToString();
