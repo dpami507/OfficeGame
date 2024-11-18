@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
     float lastDashTime;
     bool inputActive;
     public Image dashSprite;
+    bool dead;
 
     //Animation
     public Animator animator;
@@ -97,6 +98,7 @@ public class PlayerManager : MonoBehaviour
         UpdateXPBar(); //Update XP Bar;
         //OLD - levelXp = Mathf.RoundToInt(Mathf.Floor(level + (50 * Mathf.Pow(2, level / 7f)) - 40));
         levelXp = Mathf.RoundToInt((Mathf.Pow(9*level, 2) + (569*level) + 560) / 80); //Stol...Borrowed from Vampire Survivors :)
+        dead = false;
     }
 
     private void Update()
@@ -157,6 +159,10 @@ public class PlayerManager : MonoBehaviour
 
     void Die()
     {
+        if(dead) { return; }
+
+        dead = true;
+
         //Kill everything
         foreach (GameObject enemy in FindFirstObjectByType<WaveSpawner>().spawnedEnemies)
         {
@@ -170,6 +176,7 @@ public class PlayerManager : MonoBehaviour
             item.active = false;
         }
 
+        FindFirstObjectByType<SoundManager>().PlaySound("death"); //Play Sound
         FindFirstObjectByType<DeathScreenManager>().showing = true; //Show Screen
         FindFirstObjectByType<WaveSpawner>().spawning = false; //Stop Spawning
         xp = 0; //Set XP to 0 as to not level up after death
@@ -204,6 +211,7 @@ public class PlayerManager : MonoBehaviour
         FindFirstObjectByType<DeathScreenManager>().level = level;
         Debug.Log("Leveled up to level " + level);
         FindFirstObjectByType<MainMenuUI>().PauseGame(levelUI);
+        FindFirstObjectByType<SoundManager>().PlaySound("levelup");
     }
 
     public string LevelDescription(string item, int level) {

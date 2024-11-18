@@ -13,6 +13,7 @@ public class ItemPickupScript : MonoBehaviour
         {
             player.xpIncrease(collision.GetComponent<XP_Script>().xpValue);
             Destroy(collision.gameObject);
+            FindFirstObjectByType<SoundManager>().PlaySound("pickup");
         }
     }
     // when we add an ability that uses this
