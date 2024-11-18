@@ -46,10 +46,10 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator WaveStart()
     {
+        yield return new WaitForSeconds(waveDelay);
+
         if (spawning)
         {
-            yield return new WaitForSeconds(waveDelay);
-
             if (spawnedEnemies.Count < maxEnemies)
             {
                 wave++;

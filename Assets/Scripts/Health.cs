@@ -27,6 +27,10 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
 
-        if (isPlayer) { FindFirstObjectByType<CameraFollow>().Shake(); }
+        if (isPlayer)
+        { 
+            FindFirstObjectByType<CameraFollow>().Shake();
+            FindFirstObjectByType<SoundManager>().PlaySound("hit");
+        }
     }
 }

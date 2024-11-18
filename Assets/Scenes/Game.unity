@@ -449,6 +449,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &251769629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 251769632}
+  - component: {fileID: 251769631}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &251769631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251769629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a828e1619292e164d92dcaf47a44a789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundPrefab: {fileID: 4287217509269946861, guid: 8383f3d0732a1384ba4e41d5e11dfcd4, type: 3}
+  sounds:
+  - name: death
+    clip: {fileID: 8300000, guid: 5af64507ea752fa4fa1c5ecab6b52903, type: 3}
+    volume: 1
+  - name: levelup
+    clip: {fileID: 8300000, guid: 1b5b51e5d89cc284a856552307be21cb, type: 3}
+    volume: 1
+  - name: pickup
+    clip: {fileID: 8300000, guid: 7ced95f38a0a3fb4e93cd74f3207a75e, type: 3}
+    volume: 0.5
+  - name: hit
+    clip: {fileID: 8300000, guid: a06ee67652fd1c44da3aa1e19774c54f, type: 3}
+    volume: 1
+--- !u!4 &251769632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 251769629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1158486, y: -0.46654755, z: 0.038566884}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &285833369
 GameObject:
   m_ObjectHideFlags: 0
@@ -6251,9 +6309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LMAO
-
-'
+  m_text: giving up already?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
   m_sharedMaterial: {fileID: 8933351873991235343, guid: c25f306793aa8aa46800bb485873f60e, type: 2}
@@ -6280,8 +6336,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 200
-  m_fontSizeBase: 200
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6828,3 +6884,4 @@ SceneRoots:
   - {fileID: 687816794}
   - {fileID: 185282424}
   - {fileID: 1911097288}
+  - {fileID: 251769632}
