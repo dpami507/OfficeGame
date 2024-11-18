@@ -29,16 +29,19 @@ public class WeaponBaseScript : MonoBehaviour
     public float durationUpgrade = 1.0f;
     public float speedUpgrade = 1.0f;
 
+    public bool active;
+
     private void Start()
     {
         enemies = FindFirstObjectByType<WaveSpawner>();
+        active = true;
     }
 
     // is virtual to allow it to use the subclass's attack function without having to add a seperate update function there
     public virtual void Update()
     {
         lastAttack += Time.deltaTime;
-        if (lastAttack > attackCooldown * cooldownUpgrade)
+        if (lastAttack > attackCooldown * cooldownUpgrade && active)
         {
             lastAttack = 0;
             if (nameWeapon != "Paper Airplane")

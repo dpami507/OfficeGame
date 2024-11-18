@@ -95,7 +95,8 @@ public class PlayerManager : MonoBehaviour
         inputActive = true; //Allow Movement
         lastDashTime = -dashCooldownTime; //Allow Imediate Dash
         UpdateXPBar(); //Update XP Bar;
-        levelXp = Mathf.RoundToInt(Mathf.Floor(level + (50 * Mathf.Pow(2, level / 7f)) - 40));
+        //OLD - levelXp = Mathf.RoundToInt(Mathf.Floor(level + (50 * Mathf.Pow(2, level / 7f)) - 40));
+        levelXp = Mathf.RoundToInt((Mathf.Pow(9*level, 2) + (569*level) + 560) / 80); //Stol...Borrowed from Vampire Survivors :)
     }
 
     private void Update()
@@ -120,8 +121,6 @@ public class PlayerManager : MonoBehaviour
 
         dashSprite.fillAmount = (Time.time - lastDashTime) / dashCooldownTime;
 
-        collectionCircle.transform.Rotate(0.0f, 0.0f, 0.05f, Space.Self);
-
         //Dash
         if (Input.GetKey(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time)
         {
@@ -131,6 +130,8 @@ public class PlayerManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        collectionCircle.transform.Rotate(0.0f, 0.0f, 1.0f, Space.Self);
+
         // moving
         if (!inputActive || isPaused) { return; }
 
@@ -150,10 +151,25 @@ public class PlayerManager : MonoBehaviour
 
     void Die()
     {
-        // add game over screen in the future
-        FindFirstObjectByType<DeathScreenManager>().showing = true;
-        FindFirstObjectByType<CameraFollow>().ForcePos();
-        Time.timeScale = 0;
+        //Kill everything
+        foreach (GameObject enemy in FindFirstObjectByType<WaveSpawner>().spawnedEnemies)
+        {
+            Destroy(enemy);
+        }
+
+        //Disable Weapons
+        WeaponBaseScript[] weapons = FindObjectsByType<WeaponBaseScript>(FindObjectsSortMode.None);
+        foreach (var item in weapons)
+        {
+            item.active = false;
+        }
+
+        FindFirstObjectByType<DeathScreenManager>().showing = true; //Show Screen
+        FindFirstObjectByType<WaveSpawner>().spawning = false; //Stop Spawning
+        xp = 0; //Set XP to 0 as to not level up after death
+        levelXp = 999999999; //Set needed XP to a big number as backup
+        inputActive = false; //Stop taking input
+        rb.linearVelocity = Vector2.zero; //Set velocity to zero
     }
 
     public void xpIncrease(int amount) {
@@ -165,7 +181,7 @@ public class PlayerManager : MonoBehaviour
             {
                 // remove the xp needed to level up, then double the needed xp to level up.
                 xp -= levelXp;
-                levelXp = Mathf.RoundToInt(Mathf.Floor(level + (50 * Mathf.Pow(2, level / 3f)) - 40));
+                levelXp = Mathf.RoundToInt((Mathf.Pow(9 * level, 2) + (569 * level) + 560) / 80);
                 LevelUp();
                 StartCoroutine(Wait());
             } while (xp >= levelXp);
@@ -299,16 +315,19 @@ public class PlayerManager : MonoBehaviour
     // coroutines
     IEnumerator Dash()
     {
-        Debug.Log("Dashing");
+        if (inputActive)
+        {
+            Debug.Log("Dashing");
 
-        inputActive = false;
-        playerHealth.canTakeDamage = false; //Allow for dashing through enemies
+            inputActive = false;
+            playerHealth.canTakeDamage = false; //Allow for dashing through enemies
 
-        rb.linearVelocity = playerVelocity.normalized * dashSpeed;
-        yield return new WaitForSeconds(dashTime);
+            rb.linearVelocity = playerVelocity.normalized * dashSpeed;
+            yield return new WaitForSeconds(dashTime);
 
-        inputActive = true;
-        playerHealth.canTakeDamage = true; //Stop God
+            inputActive = true;
+            playerHealth.canTakeDamage = true; //Stop God
+        }
     }
 
     IEnumerator Wait() {

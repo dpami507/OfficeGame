@@ -9,14 +9,19 @@ public class DeathScreenManager : MonoBehaviour
 
     public TMP_Text levelText;
     public TMP_Text killsText;
+    public TMP_Text deathMsgText;
 
     public GameObject board;
+
+    public string[] deathMsgs;
 
     public bool showing;
 
     private void Start()
     {
         showing = false;
+
+        deathMsgText.text = deathMsgs[Random.Range(0, deathMsgs.Length)];
     }
 
     private void Update()

@@ -48,6 +48,8 @@ public class WaveSpawner : MonoBehaviour
     {
         if (spawning)
         {
+            yield return new WaitForSeconds(waveDelay);
+
             if (spawnedEnemies.Count < maxEnemies)
             {
                 wave++;
@@ -66,8 +68,6 @@ public class WaveSpawner : MonoBehaviour
                     spawnedEnemies.Add(_enemy);
                 }
             }
-
-            yield return new WaitForSeconds(waveDelay);
 
             StartCoroutine(WaveStart());
         }
