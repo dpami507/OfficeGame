@@ -18,6 +18,11 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         canTakeDamage = true;
+
+        if (!isPlayer)
+        {
+            currentHealth = maxHealth + FindAnyObjectByType<PlayerManager>().level * .2f;
+        }
     }
 
     public void TakeDamage(float damage)

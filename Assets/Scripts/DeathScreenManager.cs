@@ -21,6 +21,11 @@ public class DeathScreenManager : MonoBehaviour
     {
         showing = false;
 
+        ReRoll();
+    }
+
+    public void ReRoll()
+    {
         deathMsgText.text = deathMsgs[Random.Range(0, deathMsgs.Length)];
     }
 
