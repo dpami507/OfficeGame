@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
     public GameObject soundPrefab;
+    public Slider soundSlider;
 
     [SerializeField]
     Sound[] sounds;
@@ -15,7 +17,7 @@ public class SoundManager : MonoBehaviour
             {
                 GameObject soundPrefab_ = Instantiate(soundPrefab, FindFirstObjectByType<PlayerManager>().transform.position, Quaternion.identity);
                 AudioSource audioSource = soundPrefab_.GetComponent<AudioSource>();
-                audioSource.volume = clip.volume;
+                audioSource.volume = clip.volume * soundSlider.value;
                 audioSource.clip = clip.clip;
                 audioSource.Play();
                 Destroy(soundPrefab_, 1f);
