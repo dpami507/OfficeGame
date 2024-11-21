@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public GameObject[] enemyAssets;
+    public EnemyPrefab[] enemyAssets;
 
     public List<GameObject> spawnedEnemies;
 
@@ -21,11 +21,18 @@ public class WaveSpawner : MonoBehaviour
     public float maxEnemiesSpawn = 50;
 
     public float maxEnemies = 1000;
+    float accumulatedWeights;
+    System.Random rand = new System.Random();
 
     public Camera playerCamera;
 
     public int wave = 0;
     public bool spawning;
+
+    private void Awake()
+    {
+        CalcWeights();
+    }
 
     private void Start()
     {
@@ -60,16 +67,43 @@ public class WaveSpawner : MonoBehaviour
                 waveEnemies = Mathf.RoundToInt((waveEnemiesIncrease * wave) + waveEnemiesBase);
                 waveEnemies = Mathf.Clamp(waveEnemies, waveEnemiesBase, maxEnemiesSpawn);
 
-                for (int i = 0; i < waveEnemies; i++)
-                {
-                    int j = UnityEngine.Random.Range(0, enemyAssets.Length);
-                    GameObject _enemy = Instantiate(enemyAssets[j].gameObject);
-                    _enemy.transform.position = GetSpawnPos();
-                    spawnedEnemies.Add(_enemy);
-                }
+                SpawnEnemies();
             }
 
             StartCoroutine(WaveStart());
+        }
+    }
+
+    void SpawnEnemies()
+    {
+        for (int i = 0; i < waveEnemies; i++)
+        {
+            EnemyPrefab randomEnemy = enemyAssets[GetRandEnemyIndex()];
+
+            GameObject _enemy = Instantiate(randomEnemy.prefab);
+            _enemy.transform.position = GetSpawnPos();
+            spawnedEnemies.Add(_enemy);
+        }
+    }
+
+    int GetRandEnemyIndex()
+    {
+        double r = rand.NextDouble() * accumulatedWeights;
+
+        for (int i = 0;i < enemyAssets.Length;i++)
+            if (enemyAssets[i]._weight >= r)
+                return i;
+
+        return 0;
+    }
+
+    void CalcWeights()
+    {
+        accumulatedWeights = 0f;
+        foreach (var enemy in enemyAssets)
+        {
+            accumulatedWeights += enemy.percentChance;
+            enemy._weight = accumulatedWeights;
         }
     }
 
@@ -110,4 +144,12 @@ public class WaveSpawner : MonoBehaviour
             }
         }
     }
+}
+
+[System.Serializable]
+public class EnemyPrefab
+{
+    public GameObject prefab;
+    [Range(0f, 100f)] public float percentChance;
+    [HideInInspector] public float _weight;
 }
