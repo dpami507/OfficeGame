@@ -6,8 +6,17 @@ public class SoundManager : MonoBehaviour
     public GameObject soundPrefab;
     public Slider soundSlider;
 
+    public Slider musicSlider;
+    public AudioSource musicSource;
+    public float musicVolume;
+
     [SerializeField]
     Sound[] sounds;
+
+    private void Update()
+    {
+        musicSource.volume = musicSlider.value * musicVolume;
+    }
 
     public void PlaySound(string sound)
     {

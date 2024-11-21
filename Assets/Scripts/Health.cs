@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     public float maxHealth;
     public float currentHealth;
 
-    public Image healthBar;
+    public Slider healthBar;
 
     public bool canTakeDamage;
 
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
         if (!canTakeDamage) { return; }
 
         currentHealth -= damage;
-        healthBar.fillAmount = currentHealth / maxHealth;
+        healthBar.value = currentHealth / maxHealth;
 
         if (isPlayer)
         { 
