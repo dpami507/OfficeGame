@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
     public float xp = 0;
     public int levelXp = 5;
     public int level = 1;
-    public Image xpBar;
+    public Slider xpBar;
     public TMP_Text levelTxt;
     public GameObject collectionCircle;
 
@@ -37,6 +37,7 @@ public class PlayerManager : MonoBehaviour
     bool inputActive;
     public Image dashSprite;
     bool dead;
+    public ParticleSystem dashParticles;
 
     //Animation
     public Animator animator;
@@ -124,7 +125,7 @@ public class PlayerManager : MonoBehaviour
         dashSprite.fillAmount = (Time.time - lastDashTime) / dashCooldownTime;
 
         //Dash
-        if (Input.GetKey(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time)
+        if (Input.GetKey(KeyCode.Space) && lastDashTime + dashCooldownTime < Time.time && playerVelocity.magnitude > 0)
         {
             StartCoroutine(Dash());
             lastDashTime = Time.time;
@@ -202,7 +203,7 @@ public class PlayerManager : MonoBehaviour
 
     void UpdateXPBar() 
     {
-        xpBar.fillAmount = xp / (float)levelXp;
+        xpBar.value = xp / (float)levelXp;
         levelTxt.text = level.ToString();
     }
 
@@ -329,7 +330,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (inputActive)
         {
-            Debug.Log("Dashing");
+            dashParticles.Play();
 
             inputActive = false;
             playerHealth.canTakeDamage = false; //Allow for dashing through enemies
