@@ -157,6 +157,7 @@ MonoBehaviour:
   - {fileID: 3755158791643046533, guid: 05664d7f43ac6b94ba3543e64a388db3, type: 3}
   - {fileID: 3755158791643046533, guid: 05664d7f43ac6b94ba3543e64a388db3, type: 3}
   - {fileID: 1906032474234076430, guid: 27dfa21652224c247886a443d23b8cb1, type: 3}
+  xpRolls: {x: 1, y: 1}
   sprite: {fileID: 2954867764036054146}
   hairColors:
   - {r: 1, g: 0.9647059, b: 0.5647059, a: 1}
