@@ -19,7 +19,7 @@ public class PencilWeapon : WeaponBaseScript
             Quaternion bulletRot = Quaternion.Euler(0, 0, rotAngle);
             GameObject playerPencil = Instantiate(bullet, transform.position, bulletRot);
             playerPencil.GetComponent<PencilScript>().direction = direction;
-            float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade };
+            float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade, knockback };
             playerPencil.GetComponent<PencilScript>().SetOwnStats(stats, infinitePass);
         }
     }

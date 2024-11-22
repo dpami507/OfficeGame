@@ -9,7 +9,7 @@ public class PrinterWeapon : WeaponBaseScript
     {
         //StartCoroutine(Wait(attackNumber));
         GameObject printer = Instantiate(bullet, transform.position, Quaternion.identity);
-        float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade * 1.3f };
+        float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade * 1.3f, knockback };
         printer.GetComponent<PrinterScript>().SetOwnStats(stats, infinitePass);
         PlayerManager playerManager;
         Rigidbody2D rb;

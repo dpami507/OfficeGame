@@ -5,7 +5,7 @@ public class PaperAirplaneWeapon : WeaponBaseScript
     public override void Attack()
     {
         GameObject current = Instantiate(bullet, Vector3.zero, Quaternion.identity);
-        float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade };
+        float[] stats = { damage * damageUpgrade, enemiesToPass, duration * durationUpgrade, speed * speedUpgrade, area * areaUpgrade, knockback };
         current.GetComponent<PaperAirplaneScript>().SetOwnStats(stats, infinitePass);
         current.GetComponent<PaperAirplaneScript>().mySpawner = this;
         current.GetComponent<PaperAirplaneScript>().SetSelfUp();

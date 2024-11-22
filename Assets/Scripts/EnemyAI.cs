@@ -28,6 +28,9 @@ public class EnemyAI : MonoBehaviour
     public float lastCooldownTime;
     public float lastAttackTime;
     public int damage;
+    public bool gotHit = false;
+    public float knockstunTime = 0.1f;
+    public float knockbackTotal = 1.0f;
 
     public GameObject blood;
 
@@ -81,6 +84,10 @@ public class EnemyAI : MonoBehaviour
         float yDist = (target.position.y - transform.position.y) / tDist;
 
         rb.linearVelocity = new Vector2(xDist * speed, yDist * speed);
+
+        if () { 
+        
+        }
 
         if(target.position.x < transform.position.x)
         {
@@ -136,6 +143,7 @@ public class EnemyAI : MonoBehaviour
             else {
                 collision.GetComponent<BulletScript>().enemiesToPass--;
             }
+            gotHit = true;
         }
     }
 }
