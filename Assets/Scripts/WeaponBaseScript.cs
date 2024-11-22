@@ -20,6 +20,7 @@ public class WeaponBaseScript : MonoBehaviour
     public float area = 1;
     public float duration = 3;
     public float speed = 0.5f;
+    public float knockback = -0.1f;
 
     // upgrades
     public float cooldownUpgrade = 1.0f;

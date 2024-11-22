@@ -7,6 +7,7 @@ public class BulletScript : MonoBehaviour
     public float maxLife = 3.0f;
     public float speed = 0.5f;
     public float area = 1;
+    public float knockback = -0.1f;
     public bool infinitePass = false;
 
     public virtual void SetOwnStats(float[] myNumStats, bool isInfinite) {
@@ -15,6 +16,7 @@ public class BulletScript : MonoBehaviour
         maxLife = myNumStats[2];
         speed = myNumStats[3];
         area = myNumStats[4];
+        knockback = myNumStats[5];
         infinitePass = isInfinite;
         gameObject.transform.localScale = transform.localScale * area;
     }
