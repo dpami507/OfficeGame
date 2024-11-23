@@ -40,6 +40,9 @@ public class WeaponBaseScript : MonoBehaviour
     // is virtual to allow it to use the subclass's attack function without having to add a seperate update function there
     public virtual void Update()
     {
+        if (FindFirstObjectByType<GameManager>().gameRunning == false)
+            return;
+
         lastAttack += Time.deltaTime;
         if (lastAttack > attackCooldown * cooldownUpgrade && active)
         {

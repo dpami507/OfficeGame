@@ -51,6 +51,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (FindFirstObjectByType<GameManager>().gameRunning == false) { return; }
+
         tDist = Vector2.Distance(transform.position, target.position);
 
 
@@ -75,12 +77,17 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         // movement
-        if (!moving) { rb.linearVelocity = Vector2.zero; return; }
+        if (!moving || FindFirstObjectByType<GameManager>().gameRunning == false) { rb.linearVelocity = Vector2.zero; return; }
 
         float xDist = (target.position.x - transform.position.x) / tDist;
         float yDist = (target.position.y - transform.position.y) / tDist;
 
-        rb.linearVelocity = new Vector2(xDist * speed, yDist * speed);
+        Vector3 desiredVel = new Vector3(xDist * speed, yDist * speed, 0);
+
+        Vector3 currentVel = rb.linearVelocity;
+        Vector3 velChange = desiredVel - currentVel;
+
+        rb.AddForce(velChange, ForceMode2D.Force);
 
         if(target.position.x < transform.position.x)
         {
