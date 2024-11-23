@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     bool moving;
     public float speed;
+    public float antiSlide;
 
     Rigidbody2D rb;
     float tDist;
@@ -31,12 +32,18 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject blood;
 
+    Vector2 storedVel;
+    bool gameRunning;
+    GameManager manager;
+
 
     private void Start()
     {
         target = FindFirstObjectByType<PlayerManager>().transform;
         rb = GetComponent<Rigidbody2D>();
         myHealth = GetComponent<Health>();
+        manager = FindFirstObjectByType<GameManager>();
+        gameRunning = manager.gameRunning;
 
         foreach (GameObject choice in hairChoices)
         {
@@ -51,10 +58,24 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (FindFirstObjectByType<GameManager>().gameRunning == false) { return; }
+        if (gameRunning != manager.gameRunning)
+        {
+            if (manager.gameRunning)
+            {
+                gameRunning = true;
+                rb.linearVelocity = storedVel;
+            }
+            else
+            {
+                gameRunning = false;
+                storedVel = rb.linearVelocity;
+                rb.linearVelocity = Vector3.zero;
+            }
+        }
+
+        if (gameRunning == false) { return; }
 
         tDist = Vector2.Distance(transform.position, target.position);
-
 
         if (tDist <= attackDist/3)
         {
@@ -77,7 +98,8 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         // movement
-        if (!moving || FindFirstObjectByType<GameManager>().gameRunning == false) { rb.linearVelocity = Vector2.zero; return; }
+        if (!moving || gameRunning == false) 
+            return;
 
         float xDist = (target.position.x - transform.position.x) / tDist;
         float yDist = (target.position.y - transform.position.y) / tDist;
@@ -85,7 +107,7 @@ public class EnemyAI : MonoBehaviour
         Vector3 desiredVel = new Vector3(xDist * speed, yDist * speed, 0);
 
         Vector3 currentVel = rb.linearVelocity;
-        Vector3 velChange = desiredVel - currentVel;
+        Vector3 velChange = (desiredVel - currentVel) * antiSlide;
 
         rb.AddForce(velChange, ForceMode2D.Force);
 
