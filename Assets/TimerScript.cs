@@ -4,8 +4,8 @@ using TMPro;
 
 public class TimerScript : MonoBehaviour
 {
-    float startTime;
-    float gameTime;
+    public float startTime;
+    public float gameTime;
     public TMP_Text timerTxt;
 
     private void Start()
@@ -18,7 +18,7 @@ public class TimerScript : MonoBehaviour
     {
         if(FindFirstObjectByType<GameManager>().gameRunning == true)
         {
-            gameTime = gameTime + Time.deltaTime - startTime;
+            gameTime = gameTime + Time.deltaTime;
 
             string mins = ((int)gameTime / 60).ToString();
             string sec = (gameTime % 60).ToString("f2");
