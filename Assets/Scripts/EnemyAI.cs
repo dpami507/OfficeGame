@@ -29,8 +29,8 @@ public class EnemyAI : MonoBehaviour
     public float lastAttackTime;
     public int damage;
     public bool gotHit = false;
-    public float knockstunTime = 0.1f;
-    public float knockbackTotal = 1.0f;
+    //public float knockstunTime = 0.1f;
+    public float knockbackTotal = 0.0f;
 
     public GameObject blood;
 
@@ -78,15 +78,21 @@ public class EnemyAI : MonoBehaviour
     private void FixedUpdate()
     {
         // movement
-        if (!moving) { rb.linearVelocity = Vector2.zero; return; }
+        if (!moving && !gotHit) { rb.linearVelocity = Vector2.zero; return; }
 
         float xDist = (target.position.x - transform.position.x) / tDist;
         float yDist = (target.position.y - transform.position.y) / tDist;
 
         rb.linearVelocity = new Vector2(xDist * speed, yDist * speed);
-
-        if () { 
-        
+        // do knockback here
+        if (gotHit) {
+            rb.linearVelocity *= knockbackTotal;
+            rb.linearVelocity = new Vector2(xDist * 4 * knockbackTotal, yDist * 4 * knockbackTotal);
+            knockbackTotal += 0.1f;
+            if (knockbackTotal >= 0) {
+                gotHit = false;
+                knockbackTotal = 0;
+            }
         }
 
         if(target.position.x < transform.position.x)
@@ -133,6 +139,15 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.tag == "PlayerAttack") {
             myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage);
+            // add knockback here
+            if (knockbackTotal > -10f * speed)
+            {
+                knockbackTotal += collision.GetComponent<BulletScript>().knockback;
+            }
+            else {
+                knockbackTotal = -10f * speed;
+            }
+
             if (collision.GetComponent<BulletScript>().enemiesToPass <= 0 && !collision.GetComponent<BulletScript>().infinitePass)
             {
                 Destroy(collision.gameObject);

@@ -49,6 +49,7 @@ public class PaperAirplaneWeapon : WeaponBaseScript
             case 4:
                 duration += 0.5f;
                 damage += 5;
+                knockback -= 1f;
                 break;
             case 5:
                 numAttacks++;
@@ -60,6 +61,7 @@ public class PaperAirplaneWeapon : WeaponBaseScript
             case 7:
                 duration += 0.5f;
                 damage += 5;
+                knockback -= 1f;
                 break;
             case 8:
                 numAttacks++;
