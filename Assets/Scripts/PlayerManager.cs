@@ -103,9 +103,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (FindFirstObjectByType<GameManager>().gameRunning == false)
-            return;
-
         // check if dead
         if (playerHealth.currentHealth <= 0)
         {
@@ -148,11 +145,6 @@ public class PlayerManager : MonoBehaviour
         { 
             return; 
         }
-        else if (FindFirstObjectByType<GameManager>().gameRunning == false)
-        {
-            rb.linearVelocity = Vector3.zero;
-            return;
-        }
 
         //Set Velocity
 
@@ -194,7 +186,6 @@ public class PlayerManager : MonoBehaviour
         levelXp = 999999999; //Set needed XP to a big number as backup
         inputActive = false; //Stop taking input
         rb.linearVelocity = Vector2.zero; //Set velocity to zero
-        FindFirstObjectByType<GameManager>().gameRunning = false;
     }
 
     public void xpIncrease(int amount) {

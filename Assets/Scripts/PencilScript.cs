@@ -14,7 +14,6 @@ public class PencilScript : BulletScript
 
     void FixedUpdate()
     {
-        if(!gameRunning) { return; }
         transform.position -= direction * speed * Time.deltaTime;
         lifespan += Time.deltaTime;
         if (lifespan >= maxLife)

@@ -16,7 +16,7 @@ public class TimerScript : MonoBehaviour
 
     void Update()
     {
-        if(FindFirstObjectByType<GameManager>().gameRunning == true)
+        if(Time.timeScale == 1)
         {
             gameTime = gameTime + Time.deltaTime;
 

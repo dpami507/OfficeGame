@@ -34,9 +34,6 @@ public class LevelScript : MonoBehaviour
     List<int> correspondingLevel = new List<int>();
 
 
-    // I can make this whole code way more efficient later but I just need to make sure it works first
-
-
     private void Start()
     {
         // make sure that the choices are reset
