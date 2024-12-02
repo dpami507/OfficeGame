@@ -55,6 +55,7 @@ public class PrinterWeapon : WeaponBaseScript
                 break;
             case 3:
                 damage += 10;
+                knockback -= 2f;
                 break;
             case 4:
                 enemiesToPass += 2;
@@ -64,12 +65,14 @@ public class PrinterWeapon : WeaponBaseScript
                 break;
             case 6:
                 damage += 10;
+                knockback -= 2f;
                 break;
             case 7:
                 enemiesToPass += 2;
                 break;
             case 8:
                 damage += 10;
+                knockback -= 2f;
                 break;
             default:
                 gameObject.SetActive(true);
