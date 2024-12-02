@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PaperAirplaneWeapon : WeaponBaseScript
 {
+
     public override void Attack()
     {
         GameObject current = Instantiate(bullet, Vector3.zero, Quaternion.identity);
