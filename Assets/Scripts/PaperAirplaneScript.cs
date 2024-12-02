@@ -32,8 +32,6 @@ public class PaperAirplaneScript : BulletScript
 
     void FixedUpdate()
     {
-        if(FindFirstObjectByType<GameManager>().gameRunning == false)
-            return;
 
         transform.position = FindFirstObjectByType<PlayerManager>().gameObject.transform.position;
         transform.Rotate(Vector3.forward, -5);
