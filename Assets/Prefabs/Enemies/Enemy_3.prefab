@@ -527,6 +527,8 @@ MonoBehaviour:
   - {fileID: 4028642449419020762, guid: 74de4fd76b5017c47a6ebf91a4d5add4, type: 3}
   - {fileID: 2069688624865365866, guid: a0565dc686ed19a489796f2836d30ca8, type: 3}
   xpRolls: {x: 1, y: 1}
+  myHealth: {fileID: 0}
+  target: {fileID: 0}
   sprite: {fileID: 5626051227870272948}
   hairColors:
   - {r: 1, g: 0.9647059, b: 0.5647059, a: 1}
@@ -535,13 +537,20 @@ MonoBehaviour:
   hairChoices:
   - {fileID: 2674972836361496514}
   selectedHair: {fileID: 0}
+  moving: 0
   speed: 4
   antiSlide: 7
+  tDist: 0
   attackDist: 1
   lastCooldownTime: 0.5
   lastAttackTime: 0
   damage: 7
+  gotHit: 0
+  knockbackTotal: 0
   blood: {fileID: 4982246321979475921, guid: af1b97dc2b9fa3d48b3f4bbc41e026fc, type: 3}
+  shakePower: 0.25
+  rotPower: 1
+  manager: {fileID: 0}
 --- !u!114 &1009939492598049642
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         canTakeDamage = true;
+        healthBar.value = currentHealth / maxHealth;
 
         if (!isPlayer)
         {
@@ -25,7 +26,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, float shakeAmount, float rotAmount)
     {
         if (!canTakeDamage) { return; }
 
@@ -34,7 +35,7 @@ public class Health : MonoBehaviour
 
         if (isPlayer)
         { 
-            FindFirstObjectByType<CameraFollow>().Shake();
+            FindFirstObjectByType<CameraFollow>().Shake(shakeAmount, rotAmount);
             FindFirstObjectByType<SoundManager>().PlaySound("hit");
         }
     }

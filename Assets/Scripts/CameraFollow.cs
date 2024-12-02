@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -16,7 +15,6 @@ public class CameraFollow : MonoBehaviour
     public float rbSmooth;
 
     public float rotStrength;
-    public float shakeStrength;
 
     Vector3 desiredPosition;
     
@@ -29,12 +27,12 @@ public class CameraFollow : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.identity, smoothTime);
     }
 
-    public void Shake()
+    public void Shake(float shakeAmt, float rotAmt)
     {
         int shakeAmount = RandomNumber();
 
-        transform.position = new Vector3(transform.position.x + shakeAmount * shakeStrength, transform.position.y + shakeAmount * shakeStrength, -10);
-        transform.rotation = Quaternion.Euler(0, 0, rotStrength * shakeAmount);
+        transform.position = new Vector3(transform.position.x + shakeAmount * shakeAmt, transform.position.y + shakeAmount * shakeAmt, -10);
+        transform.rotation = Quaternion.Euler(0, 0, rotAmt * shakeAmount);
     }
 
     public void ForcePos()

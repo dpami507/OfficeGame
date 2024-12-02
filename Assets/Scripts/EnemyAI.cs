@@ -8,8 +8,9 @@ public class EnemyAI : MonoBehaviour
     public GameObject[] xpGemToSpawn;
     public Vector2 xpRolls;
 
-    Health myHealth;
-    Transform target;
+    [HideInInspector]
+    public Health myHealth;
+    public Transform target;
     public SpriteRenderer sprite;
 
     public Color[] hairColors;
@@ -17,12 +18,12 @@ public class EnemyAI : MonoBehaviour
     public GameObject[] hairChoices;
     public GameObject selectedHair;
 
-    bool moving;
+    public bool moving;
     public float speed;
     public float antiSlide;
 
     Rigidbody2D rb;
-    float tDist;
+    public float tDist;
 
     bool attacking;
     public float attackDist;
@@ -35,8 +36,13 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject blood;
 
+    public float shakePower = 1;
+    public float rotPower = 1;
+
     Vector2 storedVel;
-    GameManager manager;
+
+    [HideInInspector]
+    public GameManager manager;
 
 
     private void Start()
@@ -46,21 +52,22 @@ public class EnemyAI : MonoBehaviour
         myHealth = GetComponent<Health>();
         manager = FindFirstObjectByType<GameManager>();
 
-        foreach (GameObject choice in hairChoices)
+        if (hairChoices.Length > 0)
         {
-            choice.SetActive(false);
-        }
+            foreach (GameObject choice in hairChoices)
+            {
+                choice.SetActive(false);
+            }
 
-        selectedHair = hairChoices[Random.Range(0, hairChoices.Length)].gameObject;
-        selectedHair.SetActive(true);
-        selectedHair.GetComponent<SpriteRenderer>().color = hairColors[Random.Range(0, hairColors.Length)];
+            selectedHair = hairChoices[Random.Range(0, hairChoices.Length)].gameObject;
+            selectedHair.SetActive(true);
+            selectedHair.GetComponent<SpriteRenderer>().color = hairColors[Random.Range(0, hairColors.Length)];
+        }
 
     }
 
     private void Update()
     {
-
-
         tDist = Vector2.Distance(transform.position, target.position);
 
         if (tDist <= attackDist/3)
@@ -81,7 +88,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         // movement
         if (!moving && !gotHit) { rb.linearVelocity = Vector2.zero; return; }
@@ -103,13 +110,15 @@ public class EnemyAI : MonoBehaviour
 
         if(target.position.x < transform.position.x)
         {
-            sprite.flipX = true;   
-            selectedHair.GetComponent<SpriteRenderer>().flipX = true;   
+            sprite.flipX = true;
+            if (selectedHair != null)
+                selectedHair.GetComponent<SpriteRenderer>().flipX = true;   
         }
         else
         {
             sprite.flipX = false;
-            selectedHair.GetComponent<SpriteRenderer>().flipX = false;
+            if (selectedHair != null)
+                selectedHair.GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 
@@ -118,7 +127,7 @@ public class EnemyAI : MonoBehaviour
         if(lastAttackTime + lastCooldownTime < Time.time && attacking)
         {
             Debug.Log("kapow");
-            target.GetComponent<Health>().TakeDamage(damage);
+            target.GetComponent<Health>().TakeDamage(damage, shakePower, rotPower);
             lastAttackTime = Time.time;
         }
     }
@@ -144,7 +153,7 @@ public class EnemyAI : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "PlayerAttack") {
-            myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage);
+            myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage, shakePower, rotPower);
             // add knockback here
             if (knockbackTotal > -10f * speed)
             {
