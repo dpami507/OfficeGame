@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MainMenuUI : MonoBehaviour
 {
-
+    public bool isPaused = false;
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -19,6 +19,7 @@ public class MainMenuUI : MonoBehaviour
     public void PauseGame(GameObject uiToEnable)
     {
         Instantiate(uiToEnable, transform);
+        isPaused = true;
         // activate functions in other places when game is paused
         // TIME SCALE MUST BE LAST OR THE GAME SOFTLOCKS
         Time.timeScale = 0;
@@ -28,6 +29,7 @@ public class MainMenuUI : MonoBehaviour
     public void ResumeGame(GameObject uiToDisable)
     {
         Destroy(uiToDisable);
+        isPaused = false;
         // activate functions in other places when game is resumed
 
         // TIME SCALE MUST BE LAST OR THE GAME SOFTLOCKS

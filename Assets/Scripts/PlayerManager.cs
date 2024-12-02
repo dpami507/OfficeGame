@@ -131,7 +131,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // pause
-        if (Input.GetKey(KeyCode.Escape) && !pause.isActive)
+        if (Input.GetKey(KeyCode.Escape) && !pause.isActive && !FindFirstObjectByType<MainMenuUI>().isPaused)
         {
             pause.PauseGame();
         }
