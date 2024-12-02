@@ -153,6 +153,7 @@ public class EnemyAI : MonoBehaviour
             else {
                 knockbackTotal = -10f * speed;
             }
+            gotHit = true;
 
             if (collision.GetComponent<BulletScript>().enemiesToPass <= 0 && !collision.GetComponent<BulletScript>().infinitePass)
             {
@@ -164,7 +165,6 @@ public class EnemyAI : MonoBehaviour
             else {
                 collision.GetComponent<BulletScript>().enemiesToPass--;
             }
-            gotHit = true;
         }
     }
 }

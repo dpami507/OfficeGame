@@ -20,9 +20,8 @@ public class TimerScript : MonoBehaviour
         {
             gameTime = gameTime + Time.deltaTime;
 
-            string mins = ((int)gameTime / 60).ToString();
-            string sec = (gameTime % 60).ToString("f2");
-
+            string mins = ((int)gameTime / 60).ToString("00");
+            string sec = ((int)(gameTime % 60)).ToString("00");
             timerTxt.text = mins + ":" + sec;
         }
     }

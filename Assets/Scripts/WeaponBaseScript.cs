@@ -36,6 +36,9 @@ public class WeaponBaseScript : MonoBehaviour
     {
         enemies = FindFirstObjectByType<WaveSpawner>();
         active = true;
+        if (gameObject.activeSelf == true) {
+            level = 2;
+        }
     }
 
     // is virtual to allow it to use the subclass's attack function without having to add a seperate update function there

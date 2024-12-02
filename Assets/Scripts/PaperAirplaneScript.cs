@@ -25,6 +25,7 @@ public class PaperAirplaneScript : BulletScript
             current.transform.RotateAround(transform.position, Vector3.forward, angleBetween * i);
             current.GetComponent<BulletScript>().damage = damage;
             current.GetComponent<BulletScript>().infinitePass = true;
+            current.GetComponent<BulletScript>().knockback = knockback;
             transform.localScale.Set(area, area, area);
             myBullets.Add(current);
         }

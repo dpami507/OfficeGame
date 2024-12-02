@@ -125,6 +125,7 @@ MonoBehaviour:
   maxLife: 3
   speed: 0.5
   area: 1
+  knockback: -1
   infinitePass: 0
 --- !u!1 &9172162532965504418
 GameObject:

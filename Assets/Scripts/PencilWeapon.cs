@@ -61,7 +61,6 @@ public class PencilWeapon : WeaponBaseScript
                 break;
             case 5:
                 damage += 5;
-                knockback -= 0.5f;
                 break;
             case 6:
                 numAttacks++;
@@ -71,7 +70,6 @@ public class PencilWeapon : WeaponBaseScript
                 break;
             case 8:
                 damage += 5;
-                knockback -= 0.5f;
                 break;
             default:
                 gameObject.SetActive(true);
