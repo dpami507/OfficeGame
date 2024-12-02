@@ -1779,7 +1779,7 @@ MonoBehaviour:
   lastAttack: 0
   enemies: {fileID: 185282423}
   bullet: {fileID: 8973689698952196476, guid: e4a8599355c07804f9e3f051746637c1, type: 3}
-  level: 2
+  level: 1
   nameWeapon: Pencil
   levelUpDecriptions: []
   attackCooldown: 1.2
@@ -1790,7 +1790,7 @@ MonoBehaviour:
   area: 1
   duration: 3
   speed: 5
-  knockback: -0.5
+  knockback: -1
   cooldownUpgrade: 1
   numExtraAttacks: 0
   damageUpgrade: 1
@@ -2902,7 +2902,7 @@ MonoBehaviour:
   area: 1
   duration: 3
   speed: 3
-  knockback: -0.1
+  knockback: -1
   cooldownUpgrade: 1
   numExtraAttacks: 0
   damageUpgrade: 1
@@ -12803,7 +12803,7 @@ MonoBehaviour:
   area: 1
   duration: 3
   speed: 3
-  knockback: -1
+  knockback: -4
   cooldownUpgrade: 1
   numExtraAttacks: 0
   damageUpgrade: 1
