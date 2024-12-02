@@ -266,6 +266,7 @@ MonoBehaviour:
   - {fileID: 8254508630212537603}
   selectedHair: {fileID: 0}
   speed: 1
+  antiSlide: 7
   attackDist: 1.5
   lastCooldownTime: 0.5
   lastAttackTime: 2

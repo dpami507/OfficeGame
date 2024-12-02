@@ -10,6 +10,43 @@ public class BulletScript : MonoBehaviour
     public float knockback = -0.1f;
     public bool infinitePass = false;
 
+    public bool gameRunning;
+    GameManager manager;
+    Vector3 storedVel;
+    float storedGrvavity;
+    Rigidbody2D _rb;
+
+    void Start()
+    {
+        gameRunning = true;
+        manager = FindFirstObjectByType<GameManager>();
+    }
+
+    void Update()
+    {
+        if (gameRunning != manager.gameRunning)
+        {
+            _rb = GetComponent<Rigidbody2D>();
+
+            if (manager.gameRunning)
+            {
+                Debug.Log("Resumed");
+                gameRunning = true;
+                _rb.gravityScale = storedGrvavity;
+                _rb.linearVelocity = storedVel;
+            }
+            else
+            {
+                gameRunning = false;
+                storedVel = _rb.linearVelocity;
+                storedGrvavity = _rb.gravityScale;
+                _rb.linearVelocity = Vector3.zero;
+                _rb.gravityScale = 0;
+                Debug.Log("Paused");
+            }
+        }
+    }
+
     public virtual void SetOwnStats(float[] myNumStats, bool isInfinite) {
         damage = myNumStats[0];
         enemiesToPass = (int)myNumStats[1];

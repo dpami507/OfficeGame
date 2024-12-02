@@ -76,7 +76,6 @@ public class PlayerManager : MonoBehaviour
     };
 
     // pause screen things
-    bool isPaused = false;
     public GameObject levelUI;
     public bool facingLeft;
 
@@ -104,6 +103,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        if (FindFirstObjectByType<GameManager>().gameRunning == false)
+            return;
+
         // check if dead
         if (playerHealth.currentHealth <= 0)
         {
@@ -142,7 +144,15 @@ public class PlayerManager : MonoBehaviour
         collectionCircle.transform.Rotate(0.0f, 0.0f, 1.0f, Space.Self);
 
         // moving
-        if (!inputActive || isPaused) { return; }
+        if (!inputActive) 
+        { 
+            return; 
+        }
+        else if (FindFirstObjectByType<GameManager>().gameRunning == false)
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
 
         //Set Velocity
 
@@ -184,6 +194,7 @@ public class PlayerManager : MonoBehaviour
         levelXp = 999999999; //Set needed XP to a big number as backup
         inputActive = false; //Stop taking input
         rb.linearVelocity = Vector2.zero; //Set velocity to zero
+        FindFirstObjectByType<GameManager>().gameRunning = false;
     }
 
     public void xpIncrease(int amount) {
@@ -341,9 +352,5 @@ public class PlayerManager : MonoBehaviour
             inputActive = true;
             playerHealth.canTakeDamage = true; //Stop God
         }
-    }
-
-    IEnumerator Wait() {
-        yield return new WaitForSeconds(1);
     }
 }

@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     bool moving;
     public float speed;
+    public float antiSlide;
 
     Rigidbody2D rb;
     float tDist;
@@ -34,12 +35,18 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject blood;
 
+    Vector2 storedVel;
+    bool gameRunning;
+    GameManager manager;
+
 
     private void Start()
     {
         target = FindFirstObjectByType<PlayerManager>().transform;
         rb = GetComponent<Rigidbody2D>();
         myHealth = GetComponent<Health>();
+        manager = FindFirstObjectByType<GameManager>();
+        gameRunning = manager.gameRunning;
 
         foreach (GameObject choice in hairChoices)
         {
@@ -54,8 +61,24 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        tDist = Vector2.Distance(transform.position, target.position);
+        if (gameRunning != manager.gameRunning)
+        {
+            if (manager.gameRunning)
+            {
+                gameRunning = true;
+                rb.linearVelocity = storedVel;
+            }
+            else
+            {
+                gameRunning = false;
+                storedVel = rb.linearVelocity;
+                rb.linearVelocity = Vector3.zero;
+            }
+        }
 
+        if (gameRunning == false) { return; }
+
+        tDist = Vector2.Distance(transform.position, target.position);
 
         if (tDist <= attackDist/3)
         {
@@ -94,6 +117,11 @@ public class EnemyAI : MonoBehaviour
                 knockbackTotal = 0;
             }
         }
+
+        Vector3 currentVel = rb.linearVelocity;
+        Vector3 velChange = (desiredVel - currentVel) * antiSlide;
+
+        rb.AddForce(velChange, ForceMode2D.Force);
 
         if(target.position.x < transform.position.x)
         {
