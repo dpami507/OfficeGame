@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1746103253459058145}
   - component: {fileID: 3695053838470842197}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: KillBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5101,7 +5101,7 @@ MonoBehaviour:
   antiSlide: 15
   tDist: 0
   attackDist: 5
-  lastCooldownTime: 0.25
+  lastCooldownTime: 0.1
   lastAttackTime: 0
   damage: 2
   gotHit: 0
@@ -5125,7 +5125,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 30
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -5152,7 +5152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5085388dcc42642489b26913136aff49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 30
   currentHealth: 0
   healthBar: {fileID: 2989146723534553208}
   canTakeDamage: 0

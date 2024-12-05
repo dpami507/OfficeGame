@@ -510,6 +510,8 @@ MonoBehaviour:
   - {fileID: -618611574, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
   - {fileID: -1661144284, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
   - {fileID: 720373894, guid: fbc46437980121c45a47b7e967c2bd98, type: 3}
+  - {fileID: 1406228228, guid: f1960891cb1085a4eac66bdf2f8cb293, type: 3}
+  - {fileID: 1913008103, guid: 8ac1fe3281042524c9e7234e7eaae844, type: 3}
   delay: 1
   speed: 4
   TopCollider: {fileID: 125907277}
@@ -891,6 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d72602a151c744b8345f37be2443bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!1 &1038015206
 GameObject:
   m_ObjectHideFlags: 0
