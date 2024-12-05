@@ -99,9 +99,9 @@ public class EnemyAI : MonoBehaviour
         rb.linearVelocity = new Vector2(xDist * speed, yDist * speed);
         // do knockback here
         if (gotHit) {
-            rb.linearVelocity *= knockbackTotal;
             rb.linearVelocity = new Vector2(xDist * 4 * knockbackTotal, yDist * 4 * knockbackTotal);
             knockbackTotal += 0.1f;
+            knockbackTotal = Mathf.Clamp(knockbackTotal, -10 * speed, 0);
             if (knockbackTotal >= 0) {
                 gotHit = false;
                 knockbackTotal = 0;
@@ -155,13 +155,7 @@ public class EnemyAI : MonoBehaviour
         if (collision.tag == "PlayerAttack") {
             myHealth.TakeDamage(collision.GetComponent<BulletScript>().damage, shakePower, rotPower);
             // add knockback here
-            if (knockbackTotal > -10f * speed)
-            {
-                knockbackTotal += collision.GetComponent<BulletScript>().knockback;
-            }
-            else {
-                knockbackTotal = -10f * speed;
-            }
+            knockbackTotal += collision.GetComponent<BulletScript>().knockback;
             gotHit = true;
 
             if (collision.GetComponent<BulletScript>().enemiesToPass <= 0 && !collision.GetComponent<BulletScript>().infinitePass)

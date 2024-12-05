@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
     float lastDashTime;
     bool inputActive;
     public Image dashSprite;
-    bool dead;
+    public bool dead;
     public ParticleSystem dashParticles;
 
     //Animation

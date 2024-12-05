@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2854587713485778758}
   - component: {fileID: 4548572284526771886}
   - component: {fileID: 88263587170146776}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BavkgroundPrefab
   m_TagString: enemy
   m_Icon: {fileID: 0}
