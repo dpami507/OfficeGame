@@ -428,7 +428,10 @@ MonoBehaviour:
     percentChance: 35
     _weight: 0
   - prefab: {fileID: 9137081294972816125, guid: 9d1f21a71d4213b469c7ac6218ab6d88, type: 3}
-    percentChance: 1
+    percentChance: 10
+    _weight: 0
+  - prefab: {fileID: 4224653505095720715, guid: f35ee7f3c9f81ee458338d4224eb7be3, type: 3}
+    percentChance: 5
     _weight: 0
   spawnedEnemies: []
   waveDelay: 0
@@ -2034,7 +2037,6 @@ MonoBehaviour:
   rb: {fileID: 687816790}
   rbSmooth: 7
   rotStrength: 5
-  shakeStrength: 0.25
 --- !u!1 &621958265
 GameObject:
   m_ObjectHideFlags: 0
