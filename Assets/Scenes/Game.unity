@@ -441,8 +441,8 @@ MonoBehaviour:
   waveEnemies: 0
   waveEnemiesIncrease: 0.1
   waveEnemiesBase: 3
-  maxEnemiesSpawn: 50
-  maxEnemies: 250
+  maxEnemiesSpawn: 35
+  maxEnemies: 200
   playerCamera: {fileID: 621314533}
   wave: 0
   spawning: 0
@@ -2242,7 +2242,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 621314533}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0

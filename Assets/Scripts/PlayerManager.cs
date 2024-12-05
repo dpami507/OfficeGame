@@ -82,6 +82,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        Screen.SetResolution(1920, 1080, Screen.fullScreen);
         // Add all trinkets and starting level, maybe add the weapons to this dictionary too?
         TrinketData.Add("Coffee", 1); // Speed Upgrade
         TrinketData.Add("Magnet", 1); // Magnet Upgrade

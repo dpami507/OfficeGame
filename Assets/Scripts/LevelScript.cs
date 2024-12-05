@@ -33,7 +33,6 @@ public class LevelScript : MonoBehaviour
     List<string> possibleItems = new List<string>();
     List<int> correspondingLevel = new List<int>();
 
-
     private void Start()
     {
         // make sure that the choices are reset
@@ -51,6 +50,11 @@ public class LevelScript : MonoBehaviour
         }
         RevealChoices();
         Debug.Log("Activated");
+    }
+
+    private void Update()
+    {
+        transform.localScale = new Vector3(Mathf.Clamp(((float)Screen.width / 800), 0.05f, 1), Mathf.Clamp(((float)Screen.height / 600), 0.05f, 1), 1);
     }
 
     public void DisableSelf()

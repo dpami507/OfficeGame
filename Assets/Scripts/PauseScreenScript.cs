@@ -3,6 +3,12 @@ using UnityEngine;
 public class PauseScreenScript : MonoBehaviour
 {
     public bool isActive = false;
+
+    private void Update()
+    {
+        transform.localScale = new Vector3(Mathf.Clamp(((float)Screen.width / 800), 0.05f, 1), Mathf.Clamp(((float)Screen.height / 600), 0.05f, 1), 1);
+    }
+
     public void PauseGame()
     {
         gameObject.SetActive(true);
