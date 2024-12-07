@@ -18,7 +18,7 @@ public class ItemPickupScript : MonoBehaviour
 
         foreach (var xp in xpInRadius)
         {
-            if(xp.GetComponent<XP_Script>())
+            if(xp.GetComponent<XP_Script>() || xp.GetComponent<HealItem>())
             {
                 float distToXP = Vector2.Distance(xp.transform.position, transform.position);
 
@@ -27,7 +27,7 @@ public class ItemPickupScript : MonoBehaviour
                     CollectXP(xp.gameObject);
                 }
 
-                float speed = xpSpeed * (circleCollider.radius - distToXP + .5f) * Time.deltaTime;
+                float speed = xpSpeed * (2 * circleCollider.radius - distToXP) * Time.deltaTime;
 
                 xp.transform.position = Vector2.MoveTowards(xp.transform.position, transform.position, speed);
             }
@@ -39,6 +39,18 @@ public class ItemPickupScript : MonoBehaviour
         if (xp.GetComponent<XP_Script>())
         {
             player.xpIncrease(xp.GetComponent<XP_Script>().xpValue);
+            Destroy(xp.gameObject);
+            FindFirstObjectByType<SoundManager>().PlaySound("pickup");
+        }
+        else if (xp.GetComponent<HealItem>())
+        {
+            Health health = player.GetComponent<Health>();
+
+            health.currentHealth += xp.GetComponent<HealItem>().healthToHeal;
+            health.currentHealth = Mathf.Clamp(health.currentHealth, 0, health.maxHealth);
+
+            health.UpdateHealthBar();
+
             Destroy(xp.gameObject);
             FindFirstObjectByType<SoundManager>().PlaySound("pickup");
         }

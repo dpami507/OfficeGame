@@ -86,7 +86,7 @@ public class WaveSpawner : MonoBehaviour
 
             if (poolObj != null)
             {
-                Debug.Log($"Pulling {poolObj.name} from Pool");
+                Debug.Log("Pulling Enemy from Pool");
                 poolObj.GetComponent<EnemyAI>().EnemyStart();
                 poolObj.transform.position = GetSpawnPos();
                 spawnedEnemies.Add(poolObj);
@@ -126,10 +126,12 @@ public class WaveSpawner : MonoBehaviour
     {
         double r = rand.NextDouble() * accumulatedWeights;
 
-        for (int i = 0;i < enemyAssets.Length;i++)
-            if (enemyAssets[i]._weight >= r)
-                return i;
-
+        for (int i = 0; i < enemyAssets.Length; i++)
+            if (enemyAssets[i].levelStart < wave)
+            {
+                if (enemyAssets[i]._weight >= r)
+                    return i;
+            }
         return 0;
     }
 
@@ -187,5 +189,6 @@ public class EnemyPrefab
 {
     public GameObject prefab;
     [Range(0f, 100f)] public float percentChance;
+    public float levelStart;
     [HideInInspector] public float _weight;
 }
