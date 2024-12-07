@@ -17,7 +17,7 @@ public class Explosion : MonoBehaviour
             // Check if the object has a Rigidbody2D
             Rigidbody2D rb = collider.GetComponent<Rigidbody2D>();
 
-            if (rb != null);
+            if (rb != null)
             {
                 // Calculate the direction from the explosion center to the object
                 Vector2 explosionDirection = rb.position - (Vector2)transform.position;

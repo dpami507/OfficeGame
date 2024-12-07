@@ -41,19 +41,27 @@ public class EnemyAI : MonoBehaviour
 
     Vector2 storedVel;
 
+    public string enemyType;
+
     [HideInInspector]
     public GameManager manager;
 
 
     private void Start()
     {
-        target = FindFirstObjectByType<PlayerManager>().transform;
-        rb = GetComponent<Rigidbody2D>();
-        myHealth = GetComponent<Health>();
-        manager = FindFirstObjectByType<GameManager>();
+        if (target == null)
+            target = FindFirstObjectByType<PlayerManager>().transform;
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+        if (myHealth == null)
+            myHealth = GetComponent<Health>();
+        if (manager == null)
+            manager = FindFirstObjectByType<GameManager>();
 
         if (hairChoices.Length > 0)
         {
+            this.gameObject.name = "enemy_" + Mathf.Round(Time.time) + "_" + enemyType;
+
             foreach (GameObject choice in hairChoices)
             {
                 choice.SetActive(false);
@@ -64,6 +72,14 @@ public class EnemyAI : MonoBehaviour
             selectedHair.GetComponent<SpriteRenderer>().color = hairColors[Random.Range(0, hairColors.Length)];
         }
 
+        EnemyStart();
+    }
+
+    public void EnemyStart()
+    {
+        myHealth.currentHealth = myHealth.maxHealth;
+        myHealth.UpdateHealthBar();
+        gameObject.SetActive(true);
     }
 
     private void Update()
@@ -101,7 +117,7 @@ public class EnemyAI : MonoBehaviour
         if (gotHit) {
             rb.linearVelocity = new Vector2(xDist * 4 * knockbackTotal, yDist * 4 * knockbackTotal);
             knockbackTotal += 0.1f;
-            knockbackTotal = Mathf.Clamp(knockbackTotal, -10 * speed, 0);
+            knockbackTotal = Mathf.Clamp(knockbackTotal, (-10 * speed) / rb.mass, 0);
             if (knockbackTotal >= 0) {
                 gotHit = false;
                 knockbackTotal = 0;
@@ -147,7 +163,7 @@ public class EnemyAI : MonoBehaviour
 
         FindFirstObjectByType<DeathScreenManager>().kills++;
 
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

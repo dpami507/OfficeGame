@@ -31,12 +31,17 @@ public class Health : MonoBehaviour
         if (!canTakeDamage) { return; }
 
         currentHealth -= damage;
-        healthBar.value = currentHealth / maxHealth;
+        UpdateHealthBar();
 
         if (isPlayer)
         { 
             FindFirstObjectByType<CameraFollow>().Shake(shakeAmount, rotAmount);
             FindFirstObjectByType<SoundManager>().PlaySound("hit");
         }
+    }
+
+    public void UpdateHealthBar()
+    {
+        healthBar.value = currentHealth / maxHealth;
     }
 }

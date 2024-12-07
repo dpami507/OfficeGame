@@ -5064,7 +5064,7 @@ Transform:
   m_GameObject: {fileID: 4224653505095720715}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.35095, y: 5.5238757, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5109,6 +5109,8 @@ MonoBehaviour:
   blood: {fileID: 1425801657321531668, guid: c51ba42ab7333d24191687af6105646f, type: 3}
   shakePower: 0.1
   rotPower: 0.1
+  enemyType: e5
+  activeInScene: 1
   manager: {fileID: 0}
   dieParticle: {fileID: 1425801657321531668, guid: c51ba42ab7333d24191687af6105646f, type: 3}
   waterPivot: {fileID: 5285838052615521389}
