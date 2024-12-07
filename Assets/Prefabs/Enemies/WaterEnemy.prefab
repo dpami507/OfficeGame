@@ -78,8 +78,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.5, y: -0.75}
-      - {x: 2.5, y: 0.75}
+    - - {x: 4, y: -0.25}
+      - {x: 4, y: 0.25}
       - {x: 0, y: 0}
   m_UseDelaunayMesh: 0
 --- !u!1 &659676427155312146
@@ -123,7 +123,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659676427155312146}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -198,8 +198,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.75
-      minScalar: 0.25
+      scalar: 1
+      minScalar: 0.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -369,8 +369,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
-      minScalar: 0.25
+      scalar: 0.25
+      minScalar: 0.15
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -747,7 +747,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 15
+    angle: 2
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -5045,8 +5045,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7992505895449514533}
   - component: {fileID: 3907303252834625744}
-  - component: {fileID: 8691052264093371952}
   - component: {fileID: 6295048492725701203}
+  - component: {fileID: 8691052264093371952}
   - component: {fileID: 8812176705296443185}
   m_Layer: 0
   m_Name: WaterEnemy
@@ -5087,8 +5087,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xpGemToSpawn:
   - {fileID: 3755158791643046533, guid: 05664d7f43ac6b94ba3543e64a388db3, type: 3}
-  - {fileID: 3755158791643046533, guid: 05664d7f43ac6b94ba3543e64a388db3, type: 3}
   - {fileID: 1906032474234076430, guid: 27dfa21652224c247886a443d23b8cb1, type: 3}
+  - {fileID: 4728551114194480813, guid: 2ce6ba24855ee194f843b10e907cbcab, type: 3}
   xpRolls: {x: 1, y: 1}
   myHealth: {fileID: 0}
   target: {fileID: 0}
@@ -5098,7 +5098,6 @@ MonoBehaviour:
   selectedHair: {fileID: 0}
   moving: 0
   speed: 1
-  antiSlide: 15
   tDist: 0
   attackDist: 5
   lastCooldownTime: 0.1
@@ -5110,11 +5109,27 @@ MonoBehaviour:
   shakePower: 0.1
   rotPower: 0.1
   enemyType: e5
-  activeInScene: 1
   manager: {fileID: 0}
   dieParticle: {fileID: 1425801657321531668, guid: c51ba42ab7333d24191687af6105646f, type: 3}
   waterPivot: {fileID: 5285838052615521389}
   waterParticle: {fileID: 4049459375339709138}
+--- !u!114 &6295048492725701203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224653505095720715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5085388dcc42642489b26913136aff49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
+  currentHealth: 0
+  healthBar: {fileID: 2989146723534553208}
+  canTakeDamage: 0
+  isPlayer: 0
 --- !u!50 &8691052264093371952
 Rigidbody2D:
   serializedVersion: 5
@@ -5142,23 +5157,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6295048492725701203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224653505095720715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5085388dcc42642489b26913136aff49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 30
-  currentHealth: 0
-  healthBar: {fileID: 2989146723534553208}
-  canTakeDamage: 0
-  isPlayer: 0
 --- !u!61 &8812176705296443185
 BoxCollider2D:
   m_ObjectHideFlags: 0

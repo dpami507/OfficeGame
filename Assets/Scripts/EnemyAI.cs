@@ -20,7 +20,6 @@ public class EnemyAI : MonoBehaviour
 
     public bool moving;
     public float speed;
-    public float antiSlide;
 
     Rigidbody2D rb;
     public float tDist;
@@ -150,13 +149,17 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        Quaternion randRot = Quaternion.Euler(0, 0, Random.Range(0, 360));
-
         int x = Mathf.RoundToInt(Random.Range(xpRolls.x, xpRolls.y));
         for (int i = 0; i < x; i++)
         {
-            Instantiate(xpGemToSpawn[Random.Range(0, xpGemToSpawn.Length)], transform.position, randRot);
+            Vector2 spawnPos = new Vector2(Random.Range(-0.1f, 0.1f) + transform.position.x
+                , Random.Range(-0.1f, 0.1f) + transform.position.y);
+
+            Quaternion randRot = Quaternion.Euler(0, 0, Random.Range(0, 360));
+
+            Instantiate(xpGemToSpawn[Random.Range(0, xpGemToSpawn.Length)], spawnPos, randRot);
         }
+
         Destroy(Instantiate(blood, transform.position, Quaternion.identity), 1f);
 
         FindAnyObjectByType<WaveSpawner>().spawnedEnemies.Remove(this.gameObject);

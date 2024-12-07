@@ -420,18 +420,23 @@ MonoBehaviour:
   enemyAssets:
   - prefab: {fileID: 6454958812950385653, guid: 3a9ba1ec933d4ec4a88c9a4fbaf6d258, type: 3}
     percentChance: 75
+    levelStart: 0
     _weight: 0
   - prefab: {fileID: 4778437863309778245, guid: 7211ec68f26229840ae8e4b7fc5c8b86, type: 3}
     percentChance: 40
+    levelStart: 1
     _weight: 0
   - prefab: {fileID: 3808306357159760612, guid: fef6268ea8e1d0c439a53110d8c4bdf6, type: 3}
     percentChance: 35
+    levelStart: 0
     _weight: 0
   - prefab: {fileID: 9137081294972816125, guid: 9d1f21a71d4213b469c7ac6218ab6d88, type: 3}
-    percentChance: 10
+    percentChance: 5
+    levelStart: 5
     _weight: 0
   - prefab: {fileID: 4224653505095720715, guid: f35ee7f3c9f81ee458338d4224eb7be3, type: 3}
     percentChance: 5
+    levelStart: 10
     _weight: 0
   spawnedEnemies: []
   pooledObjects: []
@@ -4019,7 +4024,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74d43458e9a7b00419fd86b1c4c2c266, type: 2}
+  - {fileID: 2100000, guid: dde42a1420ebd79408b1895f0e2a6378, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

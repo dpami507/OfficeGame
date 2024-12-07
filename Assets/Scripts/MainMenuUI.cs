@@ -6,6 +6,12 @@ using UnityEngine;
 public class MainMenuUI : MonoBehaviour
 {
     public bool isPaused = false;
+
+    private void Awake()
+    {
+        Screen.SetResolution(1920, 1080, Screen.fullScreen);
+    }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
