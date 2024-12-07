@@ -20,9 +20,12 @@ public class MainMenuUI : MonoBehaviour
     {
         Instantiate(uiToEnable, transform);
         isPaused = true;
+
         // activate functions in other places when game is paused
         // TIME SCALE MUST BE LAST OR THE GAME SOFTLOCKS
         Time.timeScale = 0;
+
+        System.GC.Collect();
         FindFirstObjectByType<GameManager>().gameRunning = false;
     }
 

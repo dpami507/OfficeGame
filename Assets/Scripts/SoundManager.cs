@@ -29,7 +29,8 @@ public class SoundManager : MonoBehaviour
                 audioSource.volume = clip.volume * soundSlider.value;
                 audioSource.clip = clip.clip;
                 audioSource.Play();
-                Destroy(soundPrefab_, 1f);
+                float length = audioSource.clip.length;
+                Destroy(soundPrefab_, length);
             }
         }
     } 

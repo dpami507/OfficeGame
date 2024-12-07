@@ -670,7 +670,7 @@ Transform:
   m_GameObject: {fileID: 6454958812950385653}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -8.941465, y: -4.1300435, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -721,6 +721,8 @@ MonoBehaviour:
   blood: {fileID: 4982246321979475921, guid: af1b97dc2b9fa3d48b3f4bbc41e026fc, type: 3}
   shakePower: 0.25
   rotPower: 1
+  enemyType: e1
+  activeInScene: 1
   manager: {fileID: 0}
 --- !u!114 &39742418578524294
 MonoBehaviour:

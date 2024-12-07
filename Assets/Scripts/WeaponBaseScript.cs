@@ -98,7 +98,7 @@ public class WeaponBaseScript : MonoBehaviour
         int totalAttacks = numAttacks + numExtraAttacks;
         for (int i = 0; i < totalAttacks; i++)
         {
-            Debug.Log("Shooting " + i);
+            //Debug.Log("Shooting " + i);
             Attack();
             yield return new WaitForSecondsRealtime(0.1f);
         }

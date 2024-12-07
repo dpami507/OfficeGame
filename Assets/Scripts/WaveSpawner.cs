@@ -10,6 +10,8 @@ public class WaveSpawner : MonoBehaviour
 
     public List<GameObject> spawnedEnemies;
 
+    public List<GameObject> pooledObjects;
+
     public float waveDelay;
     public float waveDelayDecrease = 0.09f;
     public float waveDelayBase = 5;
@@ -57,7 +59,7 @@ public class WaveSpawner : MonoBehaviour
 
         if (spawning)
         {
-            if (spawnedEnemies.Count < maxEnemies)
+            if (spawnedEnemies.Count - maxEnemies < maxEnemies)
             {
                 wave++;
 
@@ -80,10 +82,44 @@ public class WaveSpawner : MonoBehaviour
         {
             EnemyPrefab randomEnemy = enemyAssets[GetRandEnemyIndex()];
 
-            GameObject _enemy = Instantiate(randomEnemy.prefab);
-            _enemy.transform.position = GetSpawnPos();
-            spawnedEnemies.Add(_enemy);
+            GameObject poolObj = IsTypeInPool(randomEnemy.prefab);
+
+            if (poolObj != null)
+            {
+                Debug.Log($"Pulling {poolObj.name} from Pool");
+                poolObj.GetComponent<EnemyAI>().EnemyStart();
+                poolObj.transform.position = GetSpawnPos();
+                spawnedEnemies.Add(poolObj);
+                pooledObjects.Add(poolObj);
+            }
+            else
+            {
+                GameObject _enemy = Instantiate(randomEnemy.prefab, this.transform);
+                _enemy.transform.position = GetSpawnPos();
+                spawnedEnemies.Add(_enemy);
+                pooledObjects.Add(_enemy);
+
+                Debug.Log("Spawning New");
+            }
         }
+    }
+
+    GameObject IsTypeInPool(GameObject enemy)
+    {
+        EnemyAI ai = enemy.GetComponent<EnemyAI>();
+        string type = ai.enemyType;
+
+        for (int i = 0; i < pooledObjects.Count; i++)
+        {
+            EnemyAI poAi = pooledObjects[i].GetComponent<EnemyAI>();
+
+            if (poAi.enemyType == type && poAi.isActiveAndEnabled == false)
+            {
+                return poAi.gameObject;
+            }
+        }    
+
+        return null;
     }
 
     int GetRandEnemyIndex()
