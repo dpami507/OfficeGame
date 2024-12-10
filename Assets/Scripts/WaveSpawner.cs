@@ -90,7 +90,6 @@ public class WaveSpawner : MonoBehaviour
                 poolObj.GetComponent<EnemyAI>().EnemyStart();
                 poolObj.transform.position = GetSpawnPos();
                 spawnedEnemies.Add(poolObj);
-                pooledObjects.Add(poolObj);
             }
             else
             {
@@ -98,7 +97,6 @@ public class WaveSpawner : MonoBehaviour
                 _enemy.transform.position = GetSpawnPos();
                 spawnedEnemies.Add(_enemy);
                 pooledObjects.Add(_enemy);
-
                 Debug.Log("Spawning New");
             }
         }

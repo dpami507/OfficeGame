@@ -9,7 +9,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
-        Screen.SetResolution(1920, 1080, Screen.fullScreen);
+        //Screen.SetResolution(1920, 1080, Screen.fullScreen);
     }
 
     public void LoadScene(string sceneName)
