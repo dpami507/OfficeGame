@@ -6,7 +6,7 @@ public class PauseScreenScript : MonoBehaviour
 
     private void Update()
     {
-        transform.localScale = new Vector3(Mathf.Clamp(((float)Screen.width / 800), 0.05f, 1), Mathf.Clamp(((float)Screen.height / 600), 0.05f, 1), 1);
+        //transform.localScale = new Vector3(Mathf.Clamp(((float)Screen.width / 800), 0.05f, 1), Mathf.Clamp(((float)Screen.height / 600), 0.05f, 1), 1);
     }
 
     public void PauseGame()
